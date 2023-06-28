@@ -1,10 +1,11 @@
 "use client";
 
 import { useForm, FormProvider } from "react-hook-form";
-import Input from "../form/Input";
-import ButtonPrimary from "../button/ButtonPrimary";
+import Input from "../input/Input";
+import ButtonPrimary from "../../button/ButtonPrimary";
 import { toast } from "react-toastify";
 import { loginRequest } from "@/services/user.service";
+import { PersonFill } from "react-bootstrap-icons";
 
 interface Inputs {
     username: string;
@@ -34,22 +35,28 @@ export default function LoginForm() {
             <form
                 action=""
                 onSubmit={onSubmit}
-                className="max-w-sm p-8 bg-gray-900 text-white rounded-md flex flex-col"
+                className="max-w-sm p-8 bg-gray-900 text-white rounded-md flex flex-col relative"
             >
+                <div className="w-28 h-28 rounded-full bg-slate-800 absolute -top-14 left-1/3 flex justify-center items-center ">
+                    <PersonFill size="80%" />
+                </div>
                 <Input
                     name="username"
                     type="text"
                     placeholder="Nombre de usuario"
+                    style="underline"
+                    className="mt-8"
                 />
 
                 <Input
                     name="password"
                     type="password"
                     placeholder="Contraseña"
+                    style="underline"
                     className="mt-6"
                 />
 
-                <ButtonPrimary text="Iniciar Sesión" className="mt-6" />
+                <ButtonPrimary text="Ingresar" className="mt-6" />
             </form>
         </FormProvider>
     );

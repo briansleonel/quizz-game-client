@@ -12,7 +12,7 @@ export default function ButtonPrimary({ type, text, className }: Props) {
         <button
             type={type}
             className={classNames(
-                "w-full uppercase font-medium bg-sky-600 p-2 rounded-md",
+                "w-full uppercase font-medium bg-blue-700 hover:bg-blue-600 p-2 rounded-md  transition-colors ease-in-out duration-500 text-white",
                 className ? className : ""
             )}
         >
