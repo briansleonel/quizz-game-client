@@ -9,9 +9,17 @@ import Title from "@/components/layout/Title";
 export default function RegisterForm() {
     const formMethods = useForm<IUser>();
 
+    const onSubmit = formMethods.handleSubmit((formData) => {
+        console.log(formData);
+    });
+
     return (
         <FormProvider {...formMethods}>
-            <form action="" className="max-w-lg w-full md:w-3/12 p-8">
+            <form
+                action=""
+                onSubmit={onSubmit}
+                className="max-w-lg w-full md:w-5/12 lg:w-4/12  p-8"
+            >
                 <Title title="Crear cuenta" mb="mb-6" />
 
                 <InputLabel
@@ -42,7 +50,7 @@ export default function RegisterForm() {
                 <InputLabel
                     name="password"
                     label="Contraseña"
-                    type="text"
+                    type="password"
                     className="mt-4"
                 />
 

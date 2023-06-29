@@ -9,4 +9,5 @@ export interface IUser extends ILogin {
     active: boolean;
     verified: boolean;
     role: Role;
+    _id: string;
 }

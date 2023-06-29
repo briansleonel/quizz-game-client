@@ -38,8 +38,8 @@ export default function InputLabel({
                     inputStyles,
                     style === "underline"
                         ? inputStylesUnderline
-                        : "rounded-md text-gray-950 border border-gray-400 bg-zinc-100 focus:border-blue-600",
-                    errors.username ? "border-red-500 focus:border-red-500" : ""
+                        : "rounded-md text-gray-950 border border-gray-400 bg-stone-50 focus:border-blue-600",
+                    errors[name] ? "border-red-500 focus:border-red-500" : ""
                 )}
                 {...register(name, {
                     required: true,
