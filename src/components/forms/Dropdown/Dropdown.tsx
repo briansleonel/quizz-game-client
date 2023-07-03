@@ -29,6 +29,7 @@ const stylesSelect: StylesConfig = {
         },
         backgroundColor: state.isSelected ? "#111827" : "",
         color: state.isSelected ? "#fff" : "#000",
+        textTransform: "capitalize"
     }),
 };
 
