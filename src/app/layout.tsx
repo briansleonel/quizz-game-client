@@ -4,6 +4,7 @@ import { ProviderRedux } from "@/store/ProviderRedux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toastifyConfig } from "@/config/toastify.config";
+import { TanStackQueryProvider } from "@/libs/TanStackQueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +26,9 @@ export default function RootLayout({
                         {...toastifyConfig}
                         bodyClassName="font-bold flex justify-between items-center p-3"
                     />
-                    <ProviderRedux>{children}</ProviderRedux>
+                    <TanStackQueryProvider>
+                        <ProviderRedux>{children}</ProviderRedux>
+                    </TanStackQueryProvider>
                 </div>
             </body>
         </html>

@@ -52,12 +52,12 @@ export default function QuestionForm() {
                     type="text"
                     className="mt-4"
                 />
+                <DropdownCategory className="mt-4" />
                 <TextArea
                     name="description"
                     label="Descripción"
                     className="mt-4"
                 />
-                <DropdownCategory />
 
                 <ButtonPrimary text="Guardar" className="mt-10" />
             </form>
