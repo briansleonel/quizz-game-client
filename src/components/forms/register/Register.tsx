@@ -1,6 +1,6 @@
 "use client";
 
-import ButtonPrimary from "@/components/button/ButtonPrimary";
+import Button from "@/components/button/ButtonPrimary";
 import { IUser } from "@/types/user";
 import { FormProvider, useForm } from "react-hook-form";
 import InputLabel from "../input/InputLabel";
@@ -54,7 +54,7 @@ export default function RegisterForm() {
                     className="mt-4"
                 />
 
-                <ButtonPrimary text="Registrarse" className="mt-10" />
+                <Button text="Registrarse" className="mt-10" />
             </form>
         </FormProvider>
     );

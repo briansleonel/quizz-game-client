@@ -2,7 +2,7 @@
 
 import { useForm, FormProvider } from "react-hook-form";
 import Input from "../input/Input";
-import ButtonPrimary from "../../button/ButtonPrimary";
+import Button from "../../button/ButtonPrimary";
 import { toast } from "react-toastify";
 import { loginRequest } from "@/services/user.service";
 import { PersonFill } from "react-bootstrap-icons";
@@ -56,7 +56,7 @@ export default function LoginForm() {
                     className="mt-6"
                 />
 
-                <ButtonPrimary text="Ingresar" className="mt-6" />
+                <Button text="Ingresar" className="mt-6" />
             </form>
         </FormProvider>
     );

@@ -5,7 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import InputLabel from "../input/InputLabel";
 import { DropdownCategory } from "../Dropdown/DropdownCategory/DropdownCategory";
 import TextArea from "../input/TextArea";
-import ButtonPrimary from "@/components/button/ButtonPrimary";
+import Button from "@/components/button/ButtonPrimary";
 import { toast } from "react-toastify";
 
 export default function QuestionForm() {
@@ -59,7 +59,7 @@ export default function QuestionForm() {
                     className="mt-4"
                 />
 
-                <ButtonPrimary text="Guardar" className="mt-10" />
+                <Button text="Guardar" className="mt-10" />
             </form>
         </FormProvider>
     );

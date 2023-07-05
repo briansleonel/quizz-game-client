@@ -5,6 +5,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toastifyConfig } from "@/config/toastify.config";
 import { TanStackQueryProvider } from "@/libs/TanStackQueryProvider";
+import Navbar from "@/components/navbar/Navbar";
+import Container from "@/components/layout/Container";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,13 +23,16 @@ export default function RootLayout({
     return (
         <html lang="es">
             <body className={inter.className}>
-                <div className="w-full min-h-screen font-bo">
+                <div className="">
                     <ToastContainer
                         {...toastifyConfig}
                         bodyClassName="font-bold flex justify-between items-center p-3"
                     />
                     <TanStackQueryProvider>
-                        <ProviderRedux>{children}</ProviderRedux>
+                        <ProviderRedux>
+                            <Navbar />
+                            <Container>{children}</Container>
+                        </ProviderRedux>
                     </TanStackQueryProvider>
                 </div>
             </body>

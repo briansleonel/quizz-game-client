@@ -3,7 +3,7 @@
 import { IQuestionCategory } from "@/types/questionCategory";
 import { FormProvider, useForm } from "react-hook-form";
 import InputLabel from "../input/InputLabel";
-import ButtonPrimary from "@/components/button/ButtonPrimary";
+import Button from "@/components/button/ButtonPrimary";
 
 export default function CategoryForm() {
     const formMethods = useForm<IQuestionCategory>();
@@ -25,7 +25,7 @@ export default function CategoryForm() {
                     type="text"
                 />
 
-                <ButtonPrimary text="Guardar" className="mt-10" />
+                <Button text="Guardar" className="mt-10" />
             </form>
         </FormProvider>
     );
