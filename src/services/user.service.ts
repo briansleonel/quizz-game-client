@@ -18,9 +18,9 @@ export async function loginRequest(user: ILogin) {
         if (axios.isAxiosError(error)) {
             //Si la respuesta tiene un código de estado, significa que la API respondió con un error HTTP
             if (error.response) {
+                // Lanza una excepción con el mensaje de error recibido de la API
+                throw new Error(error.response.data.message);
             }
-            // Lanza una excepción con el mensaje de error recibido de la API
-            throw new Error(error.response?.data.message);
         } else {
             // Si no hay respuesta o no se pudo conectar con la API, lanza una excepción genérica
             throw new Error("Error al verificar las credenciales");

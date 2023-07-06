@@ -8,6 +8,8 @@ export interface IUser extends ILogin {
     lastName: string;
     active: boolean;
     verified: boolean;
-    role: Role;
+    role: Role | "";
     _id: string;
 }
+
+export type IUserLogged = Pick<IUser, "_id" | "role">;

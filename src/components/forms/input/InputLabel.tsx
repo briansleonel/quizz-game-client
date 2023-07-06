@@ -38,7 +38,7 @@ export default function InputLabel({
                     inputStyles,
                     style === "underline"
                         ? inputStylesUnderline
-                        : "rounded-md text-gray-950 border border-gray-400 bg-stone-50 focus:border-blue-600",
+                        : "rounded-md text-gray-950 border border-gray-400 bg-stone-50 focus:border-blue-600 drop-shadow",
                     errors[name] ? "border-red-500 focus:border-red-500" : ""
                 )}
                 {...register(name, {

@@ -4,8 +4,8 @@ import { useForm, FormProvider } from "react-hook-form";
 import Input from "../input/Input";
 import Button from "../../button/ButtonPrimary";
 import { toast } from "react-toastify";
-import { loginRequest } from "@/services/user.service";
 import { PersonFill } from "react-bootstrap-icons";
+import { useLoginMutation } from "@/hooks/useLogin";
 
 interface Inputs {
     username: string;
@@ -14,15 +14,14 @@ interface Inputs {
 
 export default function LoginForm() {
     const formMethods = useForm<Inputs>();
+    const loginMutation = useLoginMutation();
 
-    const onSubmit = formMethods.handleSubmit(
-        async (data) => {
+    const handleSubmit = formMethods.handleSubmit(
+        async (formData) => {
             try {
-                const res = await loginRequest(data);
-                toast.success(res.message);
-            } catch (error) {
-                console.log(error);
-                if (error instanceof Error) toast.error(error.message);
+                await loginMutation.mutateAsync(formData);
+            } catch (err) {
+                if (err instanceof Error) console.log(err.message);
             }
         },
         (err) => {
@@ -33,11 +32,11 @@ export default function LoginForm() {
     return (
         <FormProvider {...formMethods}>
             <form
-                action=""
-                onSubmit={onSubmit}
-                className="max-w-sm p-8 bg-gray-900 text-white rounded-md flex flex-col relative"
+                method="POST"
+                onSubmit={handleSubmit}
+                className="max-w-sm p-8 bg-zinc-900 text-white rounded-md flex flex-col relative shadow-md drop-shadow-xl"
             >
-                <div className="w-28 h-28 rounded-full bg-slate-800 absolute -top-14 left-1/3 flex justify-center items-center ">
+                <div className="w-28 h-28 rounded-full bg-neutral-950 absolute -top-14 left-1/3 flex justify-center items-center ">
                     <PersonFill size="80%" />
                 </div>
                 <Input
@@ -61,50 +60,3 @@ export default function LoginForm() {
         </FormProvider>
     );
 }
-
-/**
-export default function LoginForm() {
-    const formMethods = useForm<Inputs>();
-    const {
-        formState: { errors },
-    } = formMethods;
-
-    const onSubmit = formMethods.handleSubmit((data) => console.log(data));
-
-    return (
-        <FormProvider {...formMethods}>
-            <form
-                action=""
-                onSubmit={onSubmit}
-                className="max-w-sm p-8 bg-gray-900 text-white rounded-md flex flex-col"
-            >
-                <Input
-                    name="username"
-                    type="text"
-                    placeholder="Nombre de usuario"
-                />
-
-                {errors.username && (
-                    <AlertDanger
-                        text="Nombre de usuario requerido"
-                        className="mt-2"
-                    />
-                )}
-
-                <Input
-                    name="password"
-                    type="password"
-                    placeholder="Contraseña"
-                    className="mt-6"
-                />
-
-                {errors.password && (
-                    <AlertDanger text="Contraseña requerida" className="mt-2" />
-                )}
-
-                <ButtonPrimary text="Iniciar Sesión" className="mt-6" />
-            </form>
-        </FormProvider>
-    );
-}
- */

@@ -15,6 +15,7 @@ import {
 import logo from "@/assets/quiz-2.jpg";
 import { NavLink } from "@/types/util";
 import ButtonLink from "../button/ButtonLink";
+import { useAppSelector } from "@/store/hooks.redux";
 
 const menuItems: Array<NavLink> = [
     { name: "Inicio", icon: House, href: "/dashboard" },
@@ -26,6 +27,9 @@ const menuItems: Array<NavLink> = [
 
 export default function Navbar() {
     const [showSidebar, setShowSidebar] = useState(false);
+
+    const { isAuthenticated } = useAppSelector((state) => state.auth);
+
     return (
         <nav className="w-full h-16 flex justify-between z-20 p-4 bg-stone-950 text-white md:px-16 lg:px-32 sticky top-0">
             {/** Logo main */}
@@ -57,7 +61,8 @@ export default function Navbar() {
                 />
             </div>
 
-            {/** Menu  */}
+            {/** Menu --- lo muestro si un usuario esta autenticado  */}
+
             <Sidebar
                 showSidebar={showSidebar}
                 setShowSidebar={setShowSidebar}
@@ -102,7 +107,7 @@ const Sidebar = ({
                             href={link.href}
                             key={link.name}
                             className="group flex items-center text-xl md:text-lg font-light gap-6 px-12 py-4 md:px-5 md:py-3 hover:bg-violet-600 w-full"
-                            onClick={() => setShowSidebar(!showSidebar)}
+                            onClick={() => setShowSidebar(false)}
                         >
                             <span className="w-8 h-8 md:w-6 md:h-6 flex items-center">
                                 {React.createElement(link.icon, {
