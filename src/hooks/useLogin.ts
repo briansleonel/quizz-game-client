@@ -1,4 +1,4 @@
-import { loginRequest } from "@/services/user.service";
+import userService from "@/services/user.service";
 import { login } from "@/store/features/authSlice";
 import { useAppDispatch } from "@/store/hooks.redux";
 import { APIResponse } from "@/types/api";
@@ -18,7 +18,7 @@ export function useLoginMutation() {
     const router = useRouter();
 
     const loginMutation = useMutation({
-        mutationFn: loginRequest,
+        mutationFn: userService.login,
         onSuccess: (data: APIResponse, variables, context) => {
             dispatch(login(data.data)); // guardo los datos de login en el estado global de la aplicación
             toast.success(data.message); // muestro el mensaje recibido
