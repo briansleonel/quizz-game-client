@@ -1,26 +1,13 @@
 "use client";
 
-import { decrement, increment } from "@/store/features/counter.slice";
-import { useAppDispatch, useAppSelector } from "@/store/hooks.redux";
+import Table from "@/components/data-table/Table";
 
 export default function HomePage() {
-    const count = useAppSelector((state) => state.counter.counter);
-    const dispatch = useAppDispatch();
-
-    const incrementHandle = () => {
-        dispatch(increment());
-    };
-
-    const decrementHandle = () => {
-        dispatch(decrement());
-    };
     return (
         <>
-            <h1>Total: {count}</h1>
-
-            <button onClick={incrementHandle}>Increment</button>
-            <br />
-            <button onClick={decrementHandle}>Decrement</button>
+            <div className="m-4 md:ml-16 ">
+                <Table />
+            </div>
         </>
     );
 }
