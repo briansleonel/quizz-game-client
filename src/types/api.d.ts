@@ -5,8 +5,24 @@
  * @property data Datos que serán enviados al cliente
  * @property message Mensaje como respuesta a la petición
  */
-export interface APIResponse {
+export interface APIResponse<I> {
     status: number;
-    data?: any;
+    data: I;
     message: string | Array<string>;
+    pagination?: ApiPagination;
+}
+
+export interface PaginationFetch {
+    limit: number;
+    page: number;
+}
+
+export interface ApiPagination extends PaginationFetch {
+    totalPages: number;
+    totalData: number;
+    pagingCounter: number;
+    hasPrevPage: boolean;
+    hasNextPage: boolean;
+    prevPage?: number | null;
+    nextPage?: number | null;
 }

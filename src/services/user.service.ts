@@ -1,6 +1,7 @@
 import { isAxiosError } from "axios";
 import { __instanceAxios, endpointsAPI } from "@/config/config";
 import { ILogin, IUser } from "@/types/user";
+import { APIResponse, PaginationFetch } from "@/types/api";
 
 /**
  * Permite realizar validar las credenciales de un usuario e iniciar sesión dentro de la aplicación
@@ -28,11 +29,16 @@ export async function login(user: ILogin) {
     }
 }
 
-async function getUsers() {
-    try {
-        const response = await __instanceAxios.get(endpointsAPI.USER);
+async function getUsers({ limit = 10, page = 1 }: PaginationFetch) {
+    const paginationData = `?page=${page}&limit=${limit}`;
 
-        return response.data;
+    try {
+        const response = await __instanceAxios.get(
+            endpointsAPI.USER + paginationData
+        );
+        console.log(response.data);
+
+        return response.data as APIResponse<Array<IUser>>;
     } catch (error) {
         // Si el error es una instancia de AxiosError, puedes acceder a la propiedad response
         if (isAxiosError(error)) {
@@ -40,10 +46,12 @@ async function getUsers() {
             if (error.response) {
                 // Lanza una excepción con el mensaje de error recibido de la API
                 throw new Error(error.response.data.message);
+            } else {
+                throw new Error(error.message);
             }
         } else {
             // Si no hay respuesta o no se pudo conectar con la API, lanza una excepción genérica
-            throw new Error("Error al verificar las credenciales");
+            throw new Error("Error sin procesar");
         }
     }
 }
