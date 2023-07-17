@@ -29,7 +29,7 @@ export default function TableGeneric<T>({ data, columnsDef }: Props<T>) {
                             {headerGroup.headers.map((header) => (
                                 <th
                                     key={header.id}
-                                    className="px-4 py-2 whitespace-pre font-light text-sm  first:rounded-l last:rounded-r uppercase"
+                                    className="px-6 py-2 whitespace-pre font-light text-sm  first:rounded-l last:rounded-r uppercase"
                                 >
                                     {flexRender(
                                         header.column.columnDef.header,
