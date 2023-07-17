@@ -35,7 +35,7 @@ export default function Navbar() {
             {/** Logo main */}
             <Link
                 href="/"
-                className="flex items-center h-full cursor-pointe text-2xl font-light gap-4"
+                className="flex items-center h-full cursor-pointe text-2xl font-light gap-4 text-white hover:text-white hover:no-underline"
             >
                 <Image src={logo} alt="" className="w-8 h-8" />
                 <span>Quizz Game</span>
@@ -57,7 +57,7 @@ export default function Navbar() {
                 <ButtonLink
                     href="/register"
                     text="Crear cuenta"
-                    className="text-sm font-light uppercase bg-indigo-800 hover:bg-indigo-700"
+                    className="text-sm font-light uppercase bg-indigo-800 hover:bg-indigo-700 hover:text-white"
                 />
             </div>
 
@@ -106,7 +106,7 @@ const Sidebar = ({
                         <Link
                             href={link.href}
                             key={link.name}
-                            className="group flex items-center text-xl md:text-lg font-light gap-6 px-12 py-4 md:px-5 md:py-3 hover:bg-violet-600 w-full"
+                            className="group flex items-center text-xl md:text-lg font-light gap-6 px-12 py-4 md:px-5 md:py-3 hover:bg-violet-600 w-full hover:no-underline text-white hover:text-white"
                             onClick={() => setShowSidebar(false)}
                         >
                             <span className="w-8 h-8 md:w-6 md:h-6 flex items-center">
@@ -147,7 +147,7 @@ const Sidebar = ({
                         <ButtonLink
                             href="/register"
                             text="Crear cuenta"
-                            className="text-sm font-light uppercase bg-indigo-800 hover:bg-indigo-700"
+                            className="text-sm font-light uppercase bg-indigo-800 hover:bg-indigo-700 hover:text-white"
                         />
                     </div>
                 )}

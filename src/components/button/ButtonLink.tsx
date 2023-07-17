@@ -12,7 +12,7 @@ export default function ButtonLink({ href, text, className }: Props) {
         <Link
             href={href}
             className={classNames(
-                "font-medium px-3 py-2 text-center rounded transition-colors ease-in-out duration-500 text-white bg-blue-700 hover:bg-blue-600",
+                "font-medium px-3 py-2 text-center rounded transition-colors ease-in-out duration-500 text-white bg-blue-700 hover:bg-blue-600 hover:no-underline",
                 className ? className : ""
             )}
         >

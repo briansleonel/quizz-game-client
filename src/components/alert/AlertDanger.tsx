@@ -1,19 +1,19 @@
 import { classNames } from "@/libs/classNames";
 
 interface Props {
-    text: string;
     className?: string;
+    children: React.ReactNode;
 }
 
-export default function AlertDanger({ text, className }: Props) {
+export default function AlertDanger({ className, children }: Props) {
     return (
         <span
             className={classNames(
-                "w-full text-xs bg-red-500 py-1 px-2 rounded-sm",
+                "w-full bg-red-500 rounded-sm text-white text-normal p-4 text-center",
                 className ? className : ""
             )}
         >
-            {text}
+            {children}
         </span>
     );
 }
