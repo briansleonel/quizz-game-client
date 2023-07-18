@@ -4,7 +4,7 @@ import Button from "@/components/button/ButtonPrimary";
 import { IUser } from "@/types/user";
 import { FormProvider, useForm } from "react-hook-form";
 import InputLabel from "../input/InputLabel";
-import Title from "@/components/layout/Title";
+import { SubTitle } from "@/components/layout/Title";
 import { toast } from "react-toastify";
 import { useRegisterMutation } from "@/hooks/useRegister";
 
@@ -32,7 +32,7 @@ export default function RegisterForm() {
                 onSubmit={handleSubmit}
                 className="max-w-lg w-full md:w-5/12 lg:w-4/12 p-8 bg-white rounded-md shadow drop-shadow-xl"
             >
-                <Title title="Crear cuenta" mb="mb-6" />
+                <SubTitle className="mb-6">Crear cuenta</SubTitle>
 
                 <InputLabel
                     name="firstName"

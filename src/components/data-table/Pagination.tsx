@@ -83,7 +83,7 @@ export default function Pagination({ pagination, setPagination }: Props) {
                     <select
                         name="limit"
                         id="limit"
-                        className="px-4 md:px-3 py-1 border rounded border-neutral-300 text-neutral-500 focus:outline-none text-sm bg-white"
+                        className="px-2 md:px-3 py-1 border rounded border-neutral-300 text-neutral-500 focus:outline-none text-sm bg-white"
                         onChange={(e) => onChangeSelect(e)}
                     >
                         {[10, 15, 20, 30, 50].map((e, i) => (

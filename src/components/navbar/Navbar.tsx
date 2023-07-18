@@ -138,7 +138,7 @@ const Sidebar = ({
 
                 {/** Buttons Login/Register */}
                 {showSidebar && (
-                    <div className="flex flex-col gap-4 md:gap-2 px-12 pt-4 pb-12 md:p-4">
+                    <div className="flex flex-col gap-4 md:hidden md:gap-2 px-12 pt-4 pb-12 md:p-4">
                         <ButtonLink
                             href="/login"
                             text="Iniciar sesión"
