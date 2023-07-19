@@ -2,6 +2,12 @@ import { isAxiosError } from "axios";
 import { __instanceAxios, endpointsAPI } from "@/config/config";
 import { ILogin, IUser } from "@/types/user";
 import { APIResponse, PaginationFetch } from "@/types/api";
+import { Verified } from "@/store/features/filters.slice";
+
+export interface QueryFetch extends PaginationFetch {
+    verified: Verified;
+    searchText: string;
+}
 
 /**
  * Permite realizar validar las credenciales de un usuario e iniciar sesión dentro de la aplicación
@@ -29,8 +35,20 @@ export async function login(user: ILogin) {
     }
 }
 
-async function getUsers({ limit = 10, page = 1 }: PaginationFetch) {
-    const paginationData = `?page=${page}&limit=${limit}`;
+async function getUsers({
+    limit = 10,
+    page = 1,
+    verified,
+    searchText,
+}: QueryFetch) {
+    const verifiedTransform =
+        verified === Verified.ALL
+            ? ""
+            : verified === Verified.VERIFIED
+            ? "true"
+            : "false";
+
+    const paginationData = `?page=${page}&limit=${limit}&verified=${verifiedTransform}&text=${searchText}`;
 
     try {
         const response = await __instanceAxios.get(

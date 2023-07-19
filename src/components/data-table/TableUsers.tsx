@@ -9,6 +9,16 @@ import userService from "@/services/user.service";
 import Pagination from "./Pagination";
 import AlertDanger from "../alert/AlertDanger";
 import useDataTable from "@/hooks/useDataTable";
+import { IData } from "@/types/util";
+import { ChangeEvent, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks.redux";
+import {
+    Verified,
+    changeFilterVerified,
+    changeSearchText,
+} from "@/store/features/filters.slice";
+import { useFormInput } from "@/hooks/useFormInput";
+import { InputText } from "../forms/input/Input";
 
 //import "rsuite/dist/rsuite.min.css";
 
@@ -49,43 +59,75 @@ const columnDefinition: Array<ColumnDef<IUser>> = [
     },
 ];
 
+const optionsVerified: Array<IData> = [
+    { label: "Todos", value: Verified.ALL },
+    { label: "Verificados", value: Verified.VERIFIED },
+    { label: "No verificados", value: Verified.NOVERIFIED },
+];
+
 export default function TableUsers() {
+    const dispatch = useAppDispatch();
+    const filters = useAppSelector((state) => state.fitlers);
+
+    const [verified, setVerified] = useState<string>("");
+    const searchInput = useFormInput("");
+
     const { data, error, isLoading, pagination, setPagination, isFetching } =
         useDataTable({
             functionFetch: userService.getUsers,
             queryKey: "users",
+            verified,
         });
-    /*
-    // datos de paginación recibidos por la api
-    const [pagination, setPagination] = useState<ApiPagination>();
 
-    // react-query para la obtención de datos desde la api
-    const { data, isLoading, error } = useQuery({
-        queryKey: ["users", pagination],
-        queryFn: () =>
-            userService.getUsers({
-                limit: pagination?.limit || 10,
-                page: pagination?.page || 1,
-            }),
-        keepPreviousData: true,
-    });
+    const searchHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        dispatch(
+            changeSearchText({
+                ...filters,
+                searchText: searchInput.inputProps.value,
+            })
+        );
+    };
 
-    useEffect(() => {
-        if (data) {
-            setPagination(data.pagination);
-        }
-    }, [data]);
-    */
+    const changeSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+        dispatch(
+            changeFilterVerified({
+                ...filters,
+                verified: e.currentTarget.value as Verified,
+            })
+        );
+    };
 
     return (
         <>
             {error && error instanceof Error ? (
                 <AlertDanger>Error: {error.message}</AlertDanger>
             ) : isLoading ? (
-                <p>Cargando...</p>
+                <p>Cargando data table...</p>
             ) : (
                 <div className="w-full">
-                    {isFetching ? <div>Refreshing...</div> : null}
+                    {/*isFetching ? <div>Refreshing...</div> : null*/}
+                    <div>
+                        <InputText
+                            type="text"
+                            name="searchInput"
+                            inputProps={searchInput.inputProps}
+                        />
+                        <button onClick={(e) => searchHandle(e)}>Buscar</button>
+                        <label htmlFor="verified">Mostrar </label>
+                        <select
+                            name="verified"
+                            id="verified"
+                            onChange={(e) => changeSelect(e)}
+                        >
+                            {optionsVerified.map((e) => (
+                                <option key={e.label} value={e.value}>
+                                    {e.label}
+                                </option>
+                            ))}
+                        </select>
+                        <button>Agregar</button>
+                    </div>
                     {data ? (
                         <TableGeneric
                             columnsDef={columnDefinition}

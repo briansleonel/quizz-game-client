@@ -1,25 +1,35 @@
+import { QueryFetch } from "@/services/user.service";
+import { useAppSelector } from "@/store/hooks.redux";
 import { APIResponse, ApiPagination, PaginationFetch } from "@/types/api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 interface Props<T> {
-    functionFetch: (
-        paginationFetch: PaginationFetch
-    ) => Promise<APIResponse<T[]>>;
+    functionFetch: (query: QueryFetch) => Promise<APIResponse<T[]>>;
     queryKey: string;
+    verified: string;
+    //search: string;
 }
 
-export default function useDataTable<T>({ functionFetch, queryKey }: Props<T>) {
+export default function useDataTable<T>({
+    functionFetch,
+    queryKey,
+    verified,
+}: Props<T>) {
     // datos de paginación recibidos por la api
     const [pagination, setPagination] = useState<ApiPagination>();
 
+    const filters = useAppSelector((state) => state.fitlers);
+
     // react-query para la obtención de datos desde la api
     const { data, isLoading, error, isFetching } = useQuery({
-        queryKey: [queryKey, pagination],
+        queryKey: [queryKey, pagination, filters],
         queryFn: () =>
             functionFetch({
                 limit: pagination?.limit || 10,
                 page: pagination?.page || 1,
+                verified: filters.verified,
+                searchText: filters.searchText,
             }),
         keepPreviousData: true,
     });
