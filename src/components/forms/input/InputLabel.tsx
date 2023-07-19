@@ -1,7 +1,7 @@
 import { classNames } from "@/libs/classNames";
 import { HTMLInputTypeAttribute } from "react";
 import { useFormContext } from "react-hook-form";
-import Input from "./Input";
+import InputFormContext from "./InputFormContext";
 
 interface Props {
     name: string;

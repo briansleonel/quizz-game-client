@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm, FormProvider } from "react-hook-form";
-import Input from "../input/Input";
+import InputFormContext from "../input/InputFormContext";
 import Button from "../../button/ButtonPrimary";
 import { toast } from "react-toastify";
 import { PersonFill } from "react-bootstrap-icons";
@@ -39,7 +39,7 @@ export default function LoginForm() {
                 <div className="w-28 h-28 rounded-full bg-neutral-950 absolute -top-14 left-1/3 flex justify-center items-center ">
                     <PersonFill size="80%" />
                 </div>
-                <Input
+                <InputFormContext
                     name="username"
                     type="text"
                     placeholder="Nombre de usuario"
@@ -47,7 +47,7 @@ export default function LoginForm() {
                     className="mt-8"
                 />
 
-                <Input
+                <InputFormContext
                     name="password"
                     type="password"
                     placeholder="Contraseña"
