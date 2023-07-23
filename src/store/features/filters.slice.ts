@@ -21,11 +21,9 @@ const filtersSlice = createSlice({
     initialState,
     reducers: {
         changeSearchText: function (state, action: PayloadAction<State>) {
-            console.log(action);
             state.searchText = action.payload.searchText;
         },
         changeFilterVerified: function (state, action: PayloadAction<State>) {
-            console.log(action);
             state.verified = action.payload.verified;
         },
     },

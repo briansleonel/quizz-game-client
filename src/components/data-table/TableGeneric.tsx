@@ -21,7 +21,7 @@ export default function TableGeneric<T>({ data, columnsDef }: Props<T>) {
     });
 
     return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto w-full">
             <table className="w-full">
                 <thead className="bg-neutral-800 text-white">
                     {table.getHeaderGroups().map((headerGroup) => (

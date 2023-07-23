@@ -25,7 +25,7 @@ export default function CategoryForm() {
                     type="text"
                 />
 
-                <Button text="Guardar" className="mt-10" />
+                <Button className="mt-10">Guardar</Button>
             </form>
         </FormProvider>
     );

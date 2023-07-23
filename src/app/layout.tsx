@@ -8,6 +8,8 @@ import { TanStackQueryProvider } from "@/libs/TanStackQueryProvider";
 import Navbar from "@/components/navbar/Navbar";
 import Container from "@/components/layout/Container";
 
+//import "rsuite/dist/rsuite.min.css";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {

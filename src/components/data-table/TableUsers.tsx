@@ -2,7 +2,7 @@
 
 import { IUser } from "@/types/user";
 import { ColumnDef } from "@tanstack/react-table";
-import { Check, X } from "react-bootstrap-icons";
+import { Check, Plus, PlusLg, Search, X, XLg } from "react-bootstrap-icons";
 import TableGeneric from "./TableGeneric";
 
 import userService from "@/services/user.service";
@@ -19,6 +19,9 @@ import {
 } from "@/store/features/filters.slice";
 import { useFormInput } from "@/hooks/useFormInput";
 import { InputText } from "../forms/input/Input";
+import Button from "../button/ButtonPrimary";
+import { SearchInput } from "../forms/input/SearchInput";
+import Filters from "../filter/Filters";
 
 //import "rsuite/dist/rsuite.min.css";
 
@@ -69,22 +72,29 @@ export default function TableUsers() {
     const dispatch = useAppDispatch();
     const filters = useAppSelector((state) => state.fitlers);
 
-    const [verified, setVerified] = useState<string>("");
     const searchInput = useFormInput("");
 
     const { data, error, isLoading, pagination, setPagination, isFetching } =
         useDataTable({
             functionFetch: userService.getUsers,
             queryKey: "users",
-            verified,
         });
 
-    const searchHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
+    const searchHandle = () => {
         dispatch(
             changeSearchText({
                 ...filters,
                 searchText: searchInput.inputProps.value,
+            })
+        );
+    };
+
+    const resetSearchInput = () => {
+        searchInput.resetInput();
+        dispatch(
+            changeSearchText({
+                ...filters,
+                searchText: "",
             })
         );
     };
@@ -105,29 +115,9 @@ export default function TableUsers() {
             ) : isLoading ? (
                 <p>Cargando data table...</p>
             ) : (
-                <div className="w-full">
+                <>
                     {/*isFetching ? <div>Refreshing...</div> : null*/}
-                    <div>
-                        <InputText
-                            type="text"
-                            name="searchInput"
-                            inputProps={searchInput.inputProps}
-                        />
-                        <button onClick={(e) => searchHandle(e)}>Buscar</button>
-                        <label htmlFor="verified">Mostrar </label>
-                        <select
-                            name="verified"
-                            id="verified"
-                            onChange={(e) => changeSelect(e)}
-                        >
-                            {optionsVerified.map((e) => (
-                                <option key={e.label} value={e.value}>
-                                    {e.label}
-                                </option>
-                            ))}
-                        </select>
-                        <button>Agregar</button>
-                    </div>
+                    {/** Muestro los datos de la tabla */}
                     {data ? (
                         <TableGeneric
                             columnsDef={columnDefinition}
@@ -135,13 +125,14 @@ export default function TableUsers() {
                         />
                     ) : null}
 
+                    {/** Muestro la paginación de datos */}
                     {pagination ? (
                         <Pagination
                             pagination={pagination}
                             setPagination={setPagination}
                         />
                     ) : null}
-                </div>
+                </>
             )}
         </>
     );

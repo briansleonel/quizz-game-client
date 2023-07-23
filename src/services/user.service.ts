@@ -41,6 +41,7 @@ async function getUsers({
     verified,
     searchText,
 }: QueryFetch) {
+    // verifico si se debe mostrar los datos verificados
     const verifiedTransform =
         verified === Verified.ALL
             ? ""
@@ -48,11 +49,12 @@ async function getUsers({
             ? "true"
             : "false";
 
-    const paginationData = `?page=${page}&limit=${limit}&verified=${verifiedTransform}&text=${searchText}`;
+    const paginationData = `?page=${page}&limit=${limit}`;
+    const queryData = `&verified=${verifiedTransform}&text=${searchText}`;
 
     try {
         const response = await __instanceAxios.get(
-            endpointsAPI.USER + paginationData
+            endpointsAPI.USER + paginationData + queryData
         );
         console.log(response.data);
 

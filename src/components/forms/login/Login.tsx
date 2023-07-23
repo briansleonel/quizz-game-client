@@ -55,7 +55,7 @@ export default function LoginForm() {
                     className="mt-6"
                 />
 
-                <Button text="Ingresar" className="mt-6" />
+                <Button className="mt-6">Ingresar</Button>
             </form>
         </FormProvider>
     );

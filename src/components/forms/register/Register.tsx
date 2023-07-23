@@ -67,10 +67,9 @@ export default function RegisterForm() {
                     className="mt-4"
                 />
 
-                <Button
-                    text="Registrarse"
-                    className="mt-10 w-full shadow shadow-blue-950"
-                />
+                <Button className="mt-10 w-full shadow shadow-blue-950">
+                    Registrarse
+                </Button>
             </form>
         </FormProvider>
     );

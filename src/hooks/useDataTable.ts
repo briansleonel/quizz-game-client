@@ -7,15 +7,9 @@ import { useEffect, useState } from "react";
 interface Props<T> {
     functionFetch: (query: QueryFetch) => Promise<APIResponse<T[]>>;
     queryKey: string;
-    verified: string;
-    //search: string;
 }
 
-export default function useDataTable<T>({
-    functionFetch,
-    queryKey,
-    verified,
-}: Props<T>) {
+export default function useDataTable<T>({ functionFetch, queryKey }: Props<T>) {
     // datos de paginación recibidos por la api
     const [pagination, setPagination] = useState<ApiPagination>();
 

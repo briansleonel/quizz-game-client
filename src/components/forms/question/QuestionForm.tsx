@@ -59,7 +59,7 @@ export default function QuestionForm() {
                     className="mt-4"
                 />
 
-                <Button text="Guardar" className="mt-10" />
+                <Button className="mt-10">Guardar</Button>
             </form>
         </FormProvider>
     );

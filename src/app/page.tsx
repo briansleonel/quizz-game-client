@@ -1,7 +1,5 @@
 "use client";
 
-import Table from "@/components/data-table/Table";
-
 export default function HomePage() {
     return (
         <>
