@@ -65,11 +65,11 @@ export default function Filters() {
                 <span>Filtros</span> <Filter className="" />
             </button>
             <div
-                className={`w-full bg-neutral-100 rounded overflow-hidden transition-[max-height] duration-500 ease-in drop-shadow md:max-h-fit ${
+                className={`w-full bg-neutral-100 md:bg-transparent rounded overflow-hidden transition-[max-height] duration-500 ease-in drop-shadow md:max-h-fit ${
                     showMobile ? "max-h-80" : "max-h-0"
                 }`}
             >
-                <div className="grid p-4 md:p-8 grid-cols-1 md:grid-cols-8 gap-2 md:gap-4 items-end md:items-center">
+                <div className="grid p-4 md:p-0 grid-cols-1 md:grid-cols-8 gap-2 md:gap-4 lg:gap-2 items-end md:items-center">
                     <SearchInput
                         type="text"
                         name="searchInput"
@@ -80,7 +80,7 @@ export default function Filters() {
                     />
                     <Button
                         onClick={() => searchHandle()}
-                        className="bg-blue-600 hover:bg-blue-700 flex items-center justify-center col-span-1 md:col-span-2 lg:col-span-1 py-1.5"
+                        className="bg-blue-600 hover:bg-blue-700 flex items-center justify-center col-span-1 md:col-span-2 lg:col-span-1 py-2 text-sm shadow"
                     >
                         <span>Buscar</span>
                         <Search className="ml-3" />
@@ -96,7 +96,7 @@ export default function Filters() {
                         name="verified"
                         id="verified"
                         onChange={(e) => changeSelect(e)}
-                        className="w-full px-2 md:px-3 py-2 border rounded text-gray-950 border-gray-400 bg-zinc-50 focus:outline-none text-sm uppercase drop-shadow col-span-1 md:col-span-2 lg:col-span-1"
+                        className="w-full px-2 md:px-3 py-1.5 border rounded text-gray-950 border-gray-400 bg-zinc-50 focus:outline-none text-sm uppercase drop-shadow col-span-1 md:col-span-2 lg:col-span-1"
                     >
                         {optionsVerified.map((e) => (
                             <option

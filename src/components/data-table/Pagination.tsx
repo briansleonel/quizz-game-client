@@ -78,7 +78,7 @@ export default function Pagination({ pagination, setPagination }: Props) {
                         htmlFor="limit"
                         className="text-neutral-500 text-xs uppercase mr-2"
                     >
-                        Límite :{" "}
+                        Mostrar :{" "}
                     </label>
                     <select
                         name="limit"

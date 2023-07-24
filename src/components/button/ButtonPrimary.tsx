@@ -6,9 +6,16 @@ interface Props {
     children: React.ReactNode;
     className?: string;
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    title?: string;
 }
 
-export default function Button({ type, children, className, onClick }: Props) {
+export default function Button({
+    type,
+    children,
+    className,
+    onClick,
+    title,
+}: Props) {
     return (
         <button
             type={type}
@@ -17,6 +24,7 @@ export default function Button({ type, children, className, onClick }: Props) {
                 "uppercase font-light  p-2 rounded-md  transition-colors ease-in-out duration-500 text-white bg-blue-700 hover:bg-blue-600 drop-shadow",
                 className ? className : ""
             )}
+            title={title ? title : ""}
         >
             {children}
         </button>
