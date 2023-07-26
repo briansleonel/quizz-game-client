@@ -30,7 +30,7 @@ export default function RegisterForm() {
             <form
                 action=""
                 onSubmit={handleSubmit}
-                className="max-w-lg w-full md:w-5/12 lg:w-4/12 p-8 bg-white rounded-md shadow drop-shadow-xl"
+                className="max-w-lg w-full "
             >
                 <SubTitle className="mb-6">Crear cuenta</SubTitle>
 
