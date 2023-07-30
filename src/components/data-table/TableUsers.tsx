@@ -17,7 +17,10 @@ import Pagination from "./Pagination";
 import AlertDanger from "../alert/AlertDanger";
 import useDataTable from "@/hooks/useDataTable";
 import Button from "../button/ButtonPrimary";
-import useDeleteUserMutation from "@/hooks/useUser";
+import {
+    useChangeVerificationUser,
+    useDeleteUserMutation,
+} from "@/hooks/useUser";
 
 //import "rsuite/dist/rsuite.min.css";
 
@@ -29,9 +32,14 @@ export default function TableUsers() {
         });
 
     const deleteUserMutation = useDeleteUserMutation();
+    const changeVerifiedMutation = useChangeVerificationUser();
 
     const handleDeleteUser = async (userId: string) => {
         await deleteUserMutation.mutateAsync(userId);
+    };
+
+    const handleChangeVerificationUser = async (userId: string) => {
+        await changeVerifiedMutation.mutateAsync(userId);
     };
 
     const columnDefinition: Array<ColumnDef<IUser>> = [
@@ -92,6 +100,7 @@ export default function TableUsers() {
                         <Button
                             className="bg-sky-600 hover:bg-sky-500"
                             title="Cambiar verificación"
+                            onClick={() => handleChangeVerificationUser(id)}
                         >
                             {verified ? <HandThumbsDown /> : <HandThumbsUp />}
                         </Button>
