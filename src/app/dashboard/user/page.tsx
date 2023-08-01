@@ -1,4 +1,4 @@
-import TableUsers from "@/components/data-table/TableUsers";
+import TableUsers from "@/components/data-table/table-user/TableUsers";
 import Filters from "@/components/filter/Filters";
 import { Title } from "@/components/layout/Title";
 
