@@ -4,7 +4,8 @@ import axios from "axios";
  * Variables de entorno de la aplicación
  */
 export const config = {
-    URL_API: process.env.URL_API || "http://192.168.0.12:3001/api/",
+    //URL_API: process.env.URL_API || "http://192.168.0.12:3001/api/",
+    URL_API: process.env.URL_API || "http://localhost:3001/api/",
 };
 
 /**
