@@ -54,7 +54,7 @@ export default function ModalShowQuestion({
 
                     <div>
                         <p className="block mb-1">Categoría</p>
-                        <SpanData>{question.category.name}</SpanData>
+                        <SpanData>{question.category.name.toUpperCase()}</SpanData>
                     </div>
                 </div>
             </ModalDialog>
