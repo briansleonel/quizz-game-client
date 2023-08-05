@@ -10,6 +10,7 @@ interface Props {
     placeholder?: string;
     className?: string;
     style?: "underline" | "default" | undefined;
+    value?: string;
 }
 
 export default function InputLabel({
@@ -19,11 +20,15 @@ export default function InputLabel({
     placeholder,
     className,
     style,
+    value,
 }: Props) {
     const {
         register,
         formState: { errors },
+        setValue,
     } = useFormContext();
+
+    if (value) setValue(name, value);
 
     return (
         <div className={classNames("w-full", className ? className : "")}>
