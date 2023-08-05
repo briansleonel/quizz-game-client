@@ -37,7 +37,7 @@ export const DropdownCategory = ({ className }: Props) => {
             ) : isLoading || isFetching ? (
                 <p>Cargando...</p>
             ) : data ? (
-                <Dropdown options={convert(data.data)} />
+                <Dropdown options={convert(data)} />
             ) : null}
         </div>
     );

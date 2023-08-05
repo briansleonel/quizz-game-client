@@ -1,6 +1,4 @@
 "use client";
-
-import QuestionForm from "@/components/forms/question/QuestionForm";
 import QuestionFormUpgrade from "@/components/forms/question/QuestionFrm";
 import questionService from "@/services/question.service";
 import { useQuery } from "@tanstack/react-query";
@@ -12,7 +10,7 @@ export default function Page({ params }: { params: { id: string } }) {
     });
 
     return params.id === "new" ? (
-        <QuestionForm />
+        ""
     ) : error && error instanceof Error ? (
         <p>Error: {error.message}</p>
     ) : isLoading ? (
