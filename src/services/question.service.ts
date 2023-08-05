@@ -89,10 +89,36 @@ async function changeVerification(id: string) {
     }
 }
 
+async function getQuestion(id: string) {
+    try {
+        const response = await __instanceAxios.get(
+            `${endpointsAPI.QUESTION}/${id}`
+        );
+        console.log(response.data);
+        
+        return response.data as APIResponse<IQuestion>;
+    } catch (error) {
+        // Si el error es una instancia de AxiosError, puedes acceder a la propiedad response
+        if (isAxiosError(error)) {
+            //Si la respuesta tiene un código de estado, significa que la API respondió con un error HTTP
+            if (error.response) {
+                // Lanza una excepción con el mensaje de error recibido de la API
+                throw new Error(error.response.data.message);
+            } else {
+                throw new Error(error.message);
+            }
+        } else {
+            // Si no hay respuesta o no se pudo conectar con la API, lanza una excepción genérica
+            throw new Error("Error sin procesar");
+        }
+    }
+}
+
 const questionService = {
     getQuestions,
     deleteQuestion,
     changeVerification,
+    getQuestion,
 };
 
 export default questionService;
