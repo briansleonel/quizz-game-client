@@ -24,7 +24,7 @@ export default function InputOption({
             <div className="w-full flex  gap-1 md:gap-2">
                 <Button
                     type="button"
-                    className="text-sm transition-all w-full p-1"
+                    className="text-sm font-extralight transition-all w-full p-1 bg-indigo-600 hover:bg-indigo-600/90"
                     onClick={() => handleAdd()}
                 >
                     Agregar opción
@@ -32,7 +32,7 @@ export default function InputOption({
                 {editOption && (
                     <Button
                         type="button"
-                        className="text-sm bg-red-600 hover:bg-red-500 w-full p-1"
+                        className="text-sm font-extralight bg-red-600 hover:bg-red-500 w-full p-1"
                         onClick={() => handleCancelEdit()}
                     >
                         Cancelar
