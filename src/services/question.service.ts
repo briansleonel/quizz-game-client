@@ -1,7 +1,7 @@
 import { __instanceAxios, endpointsAPI } from "@/config/config";
 import { Verified } from "@/store/features/filters.slice";
 import { APIResponse, PaginationFetch } from "@/types/api";
-import { IQuestion } from "@/types/question";
+import { IQuestion, IQuestionId } from "@/types/question";
 import { isAxiosError } from "axios";
 
 export interface QueryFetch extends PaginationFetch {
@@ -25,7 +25,7 @@ async function getQuestions({ limit, page, verified, searchText }: QueryFetch) {
         const response = await __instanceAxios.get(
             endpointsAPI.QUESTION + paginationData + queryData
         );
-        return response.data as APIResponse<Array<IQuestion>>;
+        return response.data as APIResponse<Array<IQuestionId>>;
     } catch (error) {
         // Si el error es una instancia de AxiosError, puedes acceder a la propiedad response
         if (isAxiosError(error)) {
@@ -94,7 +94,7 @@ async function getQuestion(id: string) {
         const response = await __instanceAxios.get(
             `${endpointsAPI.QUESTION}/${id}`
         );
-        return response.data as APIResponse<IQuestion>;
+        return response.data as APIResponse<IQuestionId>;
     } catch (error) {
         // Si el error es una instancia de AxiosError, puedes acceder a la propiedad response
         if (isAxiosError(error)) {
@@ -116,11 +116,9 @@ async function addQuestion(question: IQuestion) {
     try {
         const response = await __instanceAxios.post(
             `${endpointsAPI.QUESTION}`,
-            { question }
+            question
         );
-        console.log(response.data);
-
-        return response.data as APIResponse<IQuestion>;
+        return response.data as APIResponse<IQuestionId>;
     } catch (error) {
         // Si el error es una instancia de AxiosError, puedes acceder a la propiedad response
         if (isAxiosError(error)) {
@@ -138,9 +136,7 @@ async function addQuestion(question: IQuestion) {
     }
 }
 
-async function updateQuestion({ question }: { question: IQuestion }) {
-    console.log(question);
-
+async function updateQuestion(question: IQuestionId) {
     try {
         const response = await __instanceAxios.put(
             `${endpointsAPI.QUESTION}/${question._id}`,

@@ -1,7 +1,33 @@
-import { IQuestion } from "@/types/question";
+import { IQuestion, IQuestionId } from "@/types/question";
 import { IQuestionCategory } from "@/types/questionCategory";
+import { getUserAuthStorage } from "./localStorageLogin";
 
-export function convertToObject({
+export function convertToQuestion({
+    category,
+    correctOption,
+    options,
+    question,
+    description,
+}: {
+    category: IQuestionCategory;
+    question: string;
+    options: Array<string>;
+    correctOption: string;
+    description: string;
+}) {
+    const newQuestion: IQuestion = {
+        category: category,
+        question: question,
+        description: description,
+        options: orderOptions(options, correctOption),
+        correct: 0,
+        user: getUserAuthStorage()?._id!,
+    };
+
+    return newQuestion;
+}
+
+export function convertToQuestionwithId({
     id,
     category,
     correctOption,
@@ -17,16 +43,18 @@ export function convertToObject({
     correctOption: string;
     description: string;
     user: string;
-}): IQuestion {
-    return {
+}) {
+    const newQuestion: IQuestionId = {
         _id: id,
         category: category,
         question: question,
         description: description,
         options: orderOptions(options, correctOption),
         correct: 0,
-        user,
+        user: user,
     };
+
+    return newQuestion;
 }
 
 export function orderOptions(options: Array<string>, correct: string) {

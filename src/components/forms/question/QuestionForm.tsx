@@ -1,6 +1,6 @@
 "use client";
 
-import { IQuestion } from "@/types/question";
+import { IQuestionId } from "@/types/question";
 import { InputText } from "../input/Input";
 import Button from "@/components/button/ButtonPrimary";
 import { TextArea } from "../input/TextArea";
@@ -12,7 +12,7 @@ import useQuestionForm from "@/hooks/useQuestionForm";
 import { useRouter } from "next/navigation";
 import { SubTitle } from "@/components/layout/Title";
 
-export default function QuestionForm({ question }: { question?: IQuestion }) {
+export default function QuestionForm({ question }: { question?: IQuestionId }) {
     const router = useRouter();
     const { category, handlers, inputs, options } = useQuestionForm(question);
 
@@ -27,7 +27,7 @@ export default function QuestionForm({ question }: { question?: IQuestion }) {
         <form
             className="w-full flex flex-col gap-4 mx-auto"
             method="POST"
-            onSubmit={(e) => handlers.onSubmit(e, goToDashboardQuestion)}
+            onSubmit={handlers.onSubmit}
         >
             <SubTitle className="">Pregunta</SubTitle>
             <Label label="Pregunta" name="question">

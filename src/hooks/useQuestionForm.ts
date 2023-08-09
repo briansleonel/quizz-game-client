@@ -1,4 +1,4 @@
-import { IQuestion } from "@/types/question";
+import { IQuestionId } from "@/types/question";
 import { useState } from "react";
 import { useFormInput, useFormTextArea } from "./useFormInput";
 import { IQuestionCategory } from "@/types/questionCategory";
@@ -8,10 +8,10 @@ import {
     toastSuccess,
     toastWarning,
 } from "@/libs/toast";
-import { useUpdateQuestionMutation } from "./useQuestion";
-import { convertToObject } from "@/libs/question";
+import { useQuestion } from "./useQuestion";
+import { convertToQuestion, convertToQuestionwithId } from "@/libs/question";
 
-export default function useQuestionForm(question?: IQuestion) {
+export default function useQuestionForm(question?: IQuestionId) {
     // Array con todas las opciones disponibles
     const [options, setOptions] = useState<Array<string>>(
         question ? question.options : []
@@ -38,7 +38,7 @@ export default function useQuestionForm(question?: IQuestion) {
     );
 
     // Mutations
-    const updateMutation = useUpdateQuestionMutation();
+    const questionMutations = useQuestion();
 
     /**
      * Evento para agregar una nueva opción a la lista de opciones
@@ -111,22 +111,18 @@ export default function useQuestionForm(question?: IQuestion) {
         return options.filter((e) => e !== option);
     }
 
-    async function handlerUpdateQuestion(questionUpdate: IQuestion) {
-        await updateMutation.mutateAsync({ question: questionUpdate });
-    }
-
     /**
      * Permite realizar el envío de los datos del formulario
      * @param e Evento de formulario
      */
-    function onSubmit(e: React.FormEvent<HTMLFormElement>, goTo: () => void) {
+    function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (inputQuestion.inputProps.value) {
             if (options.length >= 2) {
                 if (correctOption !== "") {
                     if (selectedCategory._id !== "") {
                         if (question?._id) {
-                            const update = convertToObject({
+                            const update = convertToQuestionwithId({
                                 id: question._id,
                                 question: inputQuestion.inputProps.value,
                                 category: selectedCategory,
@@ -135,10 +131,16 @@ export default function useQuestionForm(question?: IQuestion) {
                                 correctOption,
                                 options,
                             });
-                            handlerUpdateQuestion(update);
-                            goTo();
+                            questionMutations.handlerUpdateQuestion(update);
                         } else {
-                            alert("Nueva pregunta");
+                            const newQuestion = convertToQuestion({
+                                question: inputQuestion.inputProps.value,
+                                category: selectedCategory,
+                                description: inputDescription.inputProps.value,
+                                correctOption,
+                                options,
+                            });
+                            questionMutations.handlerAddQuestion(newQuestion);
                         }
                     } else {
                         toastError("Debe seleccionar una categoría");

@@ -10,8 +10,11 @@ import {
     useChangeVerificationQuestion,
     useDeleteQuestionMutation,
 } from "@/hooks/useQuestion";
+import { useRouter } from "next/navigation";
 
 export default function TableQuestions() {
+    const router = useRouter();
+
     const { data, error, isLoading, pagination, setPagination } = useDataTable({
         functionFetch: questionService.getQuestions,
         queryKey: "questions",
@@ -28,9 +31,14 @@ export default function TableQuestions() {
         await changeVerifiedMutation.mutateAsync(userId);
     };
 
+    const handleEdit = (userId: string) => {
+        router.push(`/dashboard/question/${userId}`);
+    };
+
     const columnDefinition = getColumnDefinitionQuestion({
         handleDelete,
         handleChangeVerification,
+        handleEdit
     });
 
     return (

@@ -11,6 +11,7 @@ interface Props {
     id: string;
     handleDelete: (id: string) => void;
     handleChangeVerification: (id: string) => void;
+    handleEdit: (id: string) => void;
 }
 
 export default function GroupButtonActions({
@@ -18,12 +19,14 @@ export default function GroupButtonActions({
     verified,
     handleChangeVerification,
     handleDelete,
+    handleEdit,
 }: Props) {
     return (
         <div className="flex gap-2 justify-center">
             <Button
                 className="bg-yellow-500 hover:bg-yellow-400"
                 title="Editar"
+                onClick={() => handleEdit(id)}
             >
                 <PencilSquare />
             </Button>

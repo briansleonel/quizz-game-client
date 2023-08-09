@@ -2,7 +2,6 @@ import { IQuestionCategory } from "./questionCategory";
 import { IQuestionOptions } from "./questionOptions";
 
 export interface IQuestion {
-    _id: string;
     question: string;
     //options: IQuestionOptions;
     options: Array<string>;
@@ -12,4 +11,8 @@ export interface IQuestion {
     user: string;
     verified?: boolean;
     description: string;
+}
+
+export interface IQuestionId extends IQuestion {
+    _id: string;
 }

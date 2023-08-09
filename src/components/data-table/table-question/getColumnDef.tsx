@@ -1,17 +1,18 @@
-import Button from "@/components/button/ButtonPrimary";
 import ModalShowQuestion from "@/components/modal/ModalShowQuestion";
-import { IQuestion } from "@/types/question";
+import { IQuestionId } from "@/types/question";
 import { ColumnDef } from "@tanstack/react-table";
-import { Check, Eye, X } from "react-bootstrap-icons";
+import { Check, X } from "react-bootstrap-icons";
 import GroupButtonActions from "../GroupAction";
 
 export function getColumnDefinitionQuestion({
     handleChangeVerification,
     handleDelete,
+    handleEdit,
 }: {
     handleDelete: (id: string) => void;
     handleChangeVerification: (id: string) => void;
-}): Array<ColumnDef<IQuestion>> {
+    handleEdit: (id: string) => void;
+}): Array<ColumnDef<IQuestionId>> {
     return [
         {
             cell: (row) => <ModalShowQuestion question={row.row.original} />,
@@ -51,7 +52,7 @@ export function getColumnDefinitionQuestion({
 
         {
             cell: (row) => {
-                const verified = row.row.original.verified;
+                const verified = row.row.original.verified!;
                 const id = row.row.original._id;
 
                 return (
@@ -60,6 +61,7 @@ export function getColumnDefinitionQuestion({
                             handleChangeVerification(id)
                         }
                         handleDelete={() => handleDelete(id)}
+                        handleEdit={() => handleEdit(id)}
                         id={id}
                         verified={verified}
                     />
