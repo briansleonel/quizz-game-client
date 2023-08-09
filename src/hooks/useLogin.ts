@@ -1,3 +1,6 @@
+"use client";
+
+import { localStorageUser } from "@/libs/localStorageLogin";
 import { toastError, toastSuccess } from "@/libs/toast";
 import userService from "@/services/user.service";
 import { login } from "@/store/features/authSlice";
@@ -20,6 +23,7 @@ export function useLoginMutation() {
         mutationFn: userService.login,
         onSuccess: (data, variables, context) => {
             dispatch(login(data.data)); // guardo los datos de login en el estado global de la aplicación
+            localStorageUser(data.data);
             toastSuccess(data.message); // muestro el mensaje recibido
             router.push("/dashboard"); // redirecciono a la página /dashboard
         },
