@@ -10,6 +10,6 @@ export interface IQuestion {
     correct: number;
     category: IQuestionCategory;
     user: string;
-    verified: boolean;
+    verified?: boolean;
     description: string;
 }
