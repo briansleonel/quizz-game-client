@@ -7,6 +7,7 @@ import { toastifyConfig } from "@/config/toastify.config";
 import { TanStackQueryProvider } from "@/libs/TanStackQueryProvider";
 import Navbar from "@/components/navbar/Navbar";
 import Container from "@/components/layout/Container";
+import { Toaster } from "react-hot-toast";
 
 //import "rsuite/dist/rsuite.min.css";
 
@@ -30,6 +31,7 @@ export default function RootLayout({
                         {...toastifyConfig}
                         bodyClassName="font-bold flex justify-between items-center p-3"
                     />
+                    <Toaster position="top-right" reverseOrder={false} />
                     <TanStackQueryProvider>
                         <ProviderRedux>
                             <Navbar />
