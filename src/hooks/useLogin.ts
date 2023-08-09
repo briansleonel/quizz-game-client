@@ -1,10 +1,9 @@
+import { toastError, toastSuccess } from "@/libs/toast";
 import userService from "@/services/user.service";
 import { login } from "@/store/features/authSlice";
 import { useAppDispatch } from "@/store/hooks.redux";
-import { APIResponse } from "@/types/api";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 
 /**
  * Hook personalizado que maneja el loggeo de un usuario en la aplicación.
@@ -19,13 +18,13 @@ export function useLoginMutation() {
 
     const loginMutation = useMutation({
         mutationFn: userService.login,
-        onSuccess: (data: APIResponse, variables, context) => {
+        onSuccess: (data, variables, context) => {
             dispatch(login(data.data)); // guardo los datos de login en el estado global de la aplicación
-            toast.success(data.message); // muestro el mensaje recibido
+            toastSuccess(data.message); // muestro el mensaje recibido
             router.push("/dashboard"); // redirecciono a la página /dashboard
         },
         onError: (err, variables, context) => {
-            if (err instanceof Error) toast.error(err.message);
+            if (err instanceof Error) toastError(err.message);
         },
     });
 
