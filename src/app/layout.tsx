@@ -1,13 +1,11 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { ProviderRedux } from "@/store/ProviderRedux";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { toastifyConfig } from "@/config/toastify.config";
 import { TanStackQueryProvider } from "@/libs/TanStackQueryProvider";
 import Navbar from "@/components/navbar/Navbar";
 import Container from "@/components/layout/Container";
-import { Toaster } from "react-hot-toast";
+import ToasterSonner from "@/libs/sonner/ToasterSonner";
 
 //import "rsuite/dist/rsuite.min.css";
 
@@ -27,11 +25,8 @@ export default function RootLayout({
         <html lang="es">
             <body className={inter.className}>
                 <div className="">
-                    <ToastContainer
-                        {...toastifyConfig}
-                        bodyClassName="font-bold flex justify-between items-center p-3"
-                    />
-                    <Toaster position="top-right" reverseOrder={false} />
+                    {/*<Toaster position="top-right" reverseOrder={false} />*/}
+                    <ToasterSonner />
                     <TanStackQueryProvider>
                         <ProviderRedux>
                             <Navbar />
