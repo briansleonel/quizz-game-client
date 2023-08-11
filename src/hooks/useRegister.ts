@@ -1,9 +1,9 @@
+import { toastError, toastSuccess } from "@/libs/sonner/sonner.toast";
 import userService from "@/services/user.service";
 import { login } from "@/store/features/authSlice";
 import { useAppDispatch } from "@/store/hooks.redux";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 
 /**
  * Hook personalizado que maneja el registro de un nuevo usuario en la aplicación.
@@ -19,16 +19,15 @@ export function useRegisterMutation() {
     const registerMutation = useMutation({
         mutationFn: userService.register,
         onSuccess: (data) => {
-            console.log(data);
             dispatch(login(data.data));
-            toast.success(data.message);
+            toastSuccess(data.message);
             router.push("/dashboard");
         },
         onError: (err) => {
             if (err instanceof Error)
                 err.message.startsWith("E11000")
-                    ? toast.error("Nombre de usuario no disponible")
-                    : toast.error(err.message);
+                    ? toastError("Nombre de usuario no disponible")
+                    : toastError(err.message);
         },
     });
 

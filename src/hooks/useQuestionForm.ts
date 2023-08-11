@@ -1,17 +1,23 @@
 import { IQuestionId } from "@/types/question";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormInput, useFormTextArea } from "./useFormInput";
 import { IQuestionCategory } from "@/types/questionCategory";
+import { useQuestion } from "./useQuestion";
+import { convertToQuestion, convertToQuestionwithId } from "@/libs/question";
 import {
     toastError,
     toastInformation,
     toastSuccess,
     toastWarning,
-} from "@/libs/toast";
-import { useQuestion } from "./useQuestion";
-import { convertToQuestion, convertToQuestionwithId } from "@/libs/question";
+} from "@/libs/sonner/sonner.toast";
 
-export default function useQuestionForm(question?: IQuestionId) {
+export default function useQuestionForm({
+    question,
+    edit,
+}: {
+    question?: IQuestionId;
+    edit: boolean;
+}) {
     // Array con todas las opciones disponibles
     const [options, setOptions] = useState<Array<string>>(
         question ? question.options : []
@@ -60,6 +66,7 @@ export default function useQuestionForm(question?: IQuestionId) {
                     setOptions(opts);
                     inputOptions.resetInput();
                     toastSuccess("Opción agregada");
+                    setCorrectOption("");
                 } else {
                     toastError("No puede agregar opciones repetidas");
                 }
@@ -79,7 +86,7 @@ export default function useQuestionForm(question?: IQuestionId) {
         inputOptions.setInput(option); // set value from option input
         setEditOption(!editOption);
         setOptions(quitOption(option));
-        if (option === correctOption) setCorrectOption("");
+        setCorrectOption("");
     }
 
     /**
@@ -89,7 +96,6 @@ export default function useQuestionForm(question?: IQuestionId) {
         handlerAddOption();
         setEditOption(false);
         inputOptions.setInput("");
-        setCorrectOption("");
     }
 
     /**
@@ -97,9 +103,11 @@ export default function useQuestionForm(question?: IQuestionId) {
      * @param option opción a eliminar
      */
     function handlerDeleteOption(option: string) {
-        setOptions(quitOption(option));
-        if (option === correctOption) setCorrectOption("");
+        const updated = quitOption(option);
+        console.log(updated);
+        setOptions(updated);
         toastWarning("Opción eliminada");
+        setCorrectOption("");
     }
 
     /**
@@ -110,6 +118,12 @@ export default function useQuestionForm(question?: IQuestionId) {
     function quitOption(option: string) {
         return options.filter((e) => e !== option);
     }
+    /*
+    useEffect(() => {
+        
+        //setCorrectOption("");
+    }, [options]);
+    */
 
     /**
      * Permite realizar el envío de los datos del formulario
@@ -121,18 +135,21 @@ export default function useQuestionForm(question?: IQuestionId) {
             if (options.length >= 2) {
                 if (correctOption !== "") {
                     if (selectedCategory._id !== "") {
-                        if (question?._id) {
+                        if (edit) {
+                            console.log("Editando...", options);
+
                             const update = convertToQuestionwithId({
-                                id: question._id,
+                                id: question?._id!,
                                 question: inputQuestion.inputProps.value,
                                 category: selectedCategory,
                                 description: inputDescription.inputProps.value,
-                                user: question.user,
+                                user: question?.user!,
                                 correctOption,
                                 options,
                             });
                             questionMutations.handlerUpdateQuestion(update);
                         } else {
+                            console.log("Nuevo...", options);
                             const newQuestion = convertToQuestion({
                                 question: inputQuestion.inputProps.value,
                                 category: selectedCategory,

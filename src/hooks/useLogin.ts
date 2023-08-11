@@ -1,7 +1,5 @@
-"use client";
-
 import { localStorageUser } from "@/libs/localStorageLogin";
-import { toastError, toastSuccess } from "@/libs/toast";
+import { toastError, toastSuccess } from "@/libs/sonner/sonner.toast";
 import userService from "@/services/user.service";
 import { login } from "@/store/features/authSlice";
 import { useAppDispatch } from "@/store/hooks.redux";
@@ -24,7 +22,7 @@ export function useLoginMutation() {
         onSuccess: (data, variables, context) => {
             dispatch(login(data.data)); // guardo los datos de login en el estado global de la aplicación
             localStorageUser(data.data);
-            toastSuccess(data.message); // muestro el mensaje recibido
+            toastSuccess(data.message);
             router.push("/dashboard"); // redirecciono a la página /dashboard
         },
         onError: (err, variables, context) => {

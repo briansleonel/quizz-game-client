@@ -3,9 +3,9 @@
 import { useForm, FormProvider } from "react-hook-form";
 import InputFormContext from "../input/InputFormContext";
 import Button from "../../button/ButtonPrimary";
-import { toast } from "react-toastify";
 import { PersonFill } from "react-bootstrap-icons";
 import { useLoginMutation } from "@/hooks/useLogin";
+import { toastInformation } from "@/libs/sonner/sonner.toast";
 
 interface Inputs {
     username: string;
@@ -18,14 +18,10 @@ export default function LoginForm() {
 
     const handleSubmit = formMethods.handleSubmit(
         async (formData) => {
-            try {
-                await loginMutation.mutateAsync(formData);
-            } catch (err) {
-                if (err instanceof Error) console.log(err.message);
-            }
+            await loginMutation.mutateAsync(formData);
         },
         (err) => {
-            toast.info("Ingrese sus credenciales");
+            toastInformation("Ingrese sus credenciales");
         }
     );
 

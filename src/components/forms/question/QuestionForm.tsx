@@ -9,18 +9,27 @@ import ListBoxCategory from "../list-box/ListBoxCategory";
 import InputOption from "./InputOption";
 import Label from "./Label";
 import useQuestionForm from "@/hooks/useQuestionForm";
-import { useRouter } from "next/navigation";
 import { SubTitle } from "@/components/layout/Title";
+import { useNavigationRouter } from "@/hooks/useNavigationRouter";
 
-export default function QuestionForm({ question }: { question?: IQuestionId }) {
-    const router = useRouter();
-    const { category, handlers, inputs, options } = useQuestionForm(question);
+export default function QuestionForm({
+    question,
+    edit,
+}: {
+    question?: IQuestionId;
+    edit: boolean;
+}) {
+    const router = useNavigationRouter();
+    const { category, handlers, inputs, options } = useQuestionForm({
+        question,
+        edit,
+    });
 
     /**
      * Evento para volver al dashboard principal de preguntas
      */
     const goToDashboardQuestion = () => {
-        router.push("/dashboard/question");
+        router.goTo("/dashboard/question");
     };
 
     return (

@@ -5,8 +5,8 @@ import { IUser } from "@/types/user";
 import { FormProvider, useForm } from "react-hook-form";
 import InputLabel from "../input/InputLabel";
 import { SubTitle } from "@/components/layout/Title";
-import { toast } from "react-toastify";
 import { useRegisterMutation } from "@/hooks/useRegister";
+import { toastInformation } from "@/libs/sonner/sonner.toast";
 
 export default function RegisterForm() {
     const formMethods = useForm<IUser>();
@@ -14,14 +14,10 @@ export default function RegisterForm() {
 
     const handleSubmit = formMethods.handleSubmit(
         async (formData) => {
-            try {
-                await registerMutation.mutateAsync(formData);
-            } catch (err) {
-                if (err instanceof Error) console.log(err.message);
-            }
+            await registerMutation.mutateAsync(formData);
         },
         (err) => {
-            toast.info("Complete todos los campos");
+            toastInformation("Complete todos los campos");
         }
     );
 

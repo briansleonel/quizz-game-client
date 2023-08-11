@@ -48,6 +48,7 @@ export function useChangeVerificationQuestion() {
 
 export function useUpdateQuestionMutation() {
     const router = useNavigationRouter();
+    const queryClient = useQueryClient();
 
     const updateQuestionMutation = useMutation({
         mutationFn: questionService.updateQuestion,
@@ -55,6 +56,7 @@ export function useUpdateQuestionMutation() {
         onSuccess: (data) => {
             router.goTo(PATH_NAVIGATION);
             toastSuccess(data.message as string);
+            queryClient.invalidateQueries({ queryKey: ["questions"] });
         },
         onError: (err) => {
             if (err instanceof Error) {
@@ -68,6 +70,7 @@ export function useUpdateQuestionMutation() {
 
 export function useAddQuestionMutation() {
     const router = useNavigationRouter();
+    const queryClient = useQueryClient();
 
     const addQuestionMutation = useMutation({
         mutationFn: questionService.addQuestion,
@@ -75,6 +78,7 @@ export function useAddQuestionMutation() {
         onSuccess: (data) => {
             router.goTo(PATH_NAVIGATION);
             toastSuccess(data.message as string);
+            queryClient.invalidateQueries({ queryKey: ["questions"] });
         },
         onError: (err) => {
             if (err instanceof Error) {
