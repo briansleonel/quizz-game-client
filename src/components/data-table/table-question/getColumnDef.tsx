@@ -15,7 +15,13 @@ export function getColumnDefinitionQuestion({
 }): Array<ColumnDef<IQuestionId>> {
     return [
         {
-            cell: (row) => <ModalShowQuestion question={row.row.original} />,
+            cell: (row) => (
+                <ModalShowQuestion
+                    question={row.row.original}
+                    handleDelete={handleDelete}
+                    handleEdit={handleEdit}
+                />
+            ),
             accessorKey: "show",
             header: "",
         },

@@ -1,13 +1,25 @@
 import { HTMLInputTypeAttribute, useState } from "react";
 import Button from "../button/ButtonPrimary";
-import { Eye } from "react-bootstrap-icons";
+import {
+    ArrowReturnLeft,
+    Check,
+    Check2,
+    Check2Circle,
+    Eye,
+    PencilSquare,
+    Trash3Fill,
+} from "react-bootstrap-icons";
 import ModalDialog from "./ModalDialog";
-import { IQuestion } from "@/types/question";
+import { IQuestionId } from "@/types/question";
 
 export default function ModalShowQuestion({
     question,
+    handleDelete,
+    handleEdit,
 }: {
-    question: IQuestion;
+    question: IQuestionId;
+    handleDelete: (id: string) => void;
+    handleEdit: (id: string) => void;
 }) {
     let [isOpen, setIsOpen] = useState(false);
 
@@ -33,28 +45,69 @@ export default function ModalShowQuestion({
             <ModalDialog
                 closeModal={closeModal}
                 isOpen={isOpen}
-                title=""
+                title="Pregunta"
+                className="md:max-w-sm lg:max-w-md"
             >
-                <div className="w-full flex flex-col gap-4">
+                <div className="w-full flex flex-col gap-4 text-gray-950">
                     <div>
-                        <p className="block mb-1">Pregunta</p>
+                        <p className="block mb-1 font-light">Pregunta:</p>
                         <SpanData>{question.question}</SpanData>
                     </div>
-
-                    {question.options.map((e, i) => (
-                        <div key={i}>
-                            <p className="block mb-1">
-                                {i === question.correct
-                                    ? "Opción correcta"
-                                    : `Opción ${i}`}
-                            </p>
-                            <SpanData>{e}</SpanData>
+                    <div>
+                        <p className="block mb-1 font-light">Opciones:</p>
+                        <div className="flex flex-col gap-2">
+                            {question.options.map((e, i) => (
+                                <SpanData
+                                    key={i}
+                                    className={
+                                        question.correct === i
+                                            ? "border-green-500 flex justify-between items-center"
+                                            : "border-gray-400 block"
+                                    }
+                                >
+                                    {e}{" "}
+                                    {question.correct === i ? (
+                                        <Check2 className="text-green-500 text-xl" />
+                                    ) : (
+                                        ""
+                                    )}
+                                </SpanData>
+                            ))}
                         </div>
-                    ))}
+                    </div>
 
                     <div>
-                        <p className="block mb-1">Categoría</p>
-                        <SpanData>{question.category.name.toUpperCase()}</SpanData>
+                        <p className="block mb-1 font-light">Categoría</p>
+                        <SpanData>
+                            {question.category.name.toUpperCase()}
+                        </SpanData>
+                    </div>
+
+                    <div className="flex flex-col-reverse md:flex-row gap-2 mt-4">
+                        <Button
+                            className="bg-red-600 hover:bg-red-500 flex justify-center items-center gap-2 w-full text-sm"
+                            title="Eliminar"
+                            onClick={() => handleDelete(question._id)}
+                        >
+                            <Trash3Fill />
+                            <span>Eliminar</span>
+                        </Button>
+                        <Button
+                            className="bg-yellow-500 hover:bg-yellow-400 flex justify-center items-center gap-2 w-full text-sm"
+                            title="Editar"
+                            onClick={() => handleEdit(question._id)}
+                        >
+                            <PencilSquare />
+                            <span>Editar</span>
+                        </Button>
+                        <Button
+                            className=" flex justify-center items-center gap-2 w-full text-sm"
+                            title="Volver atrás"
+                            onClick={() => closeModal()}
+                        >
+                            <ArrowReturnLeft />
+                            <span>Volver</span>
+                        </Button>
                     </div>
                 </div>
             </ModalDialog>
@@ -62,33 +115,20 @@ export default function ModalShowQuestion({
     );
 }
 
-export function SpanData({ children }: { children: React.ReactNode }) {
-    return (
-        <span className="w-full block px-2 py-1 outline-none rounded-md text-gray-950 border border-gray-400 bg-zinc-50 drop-shadow">
-            {children}
-        </span>
-    );
-}
-
-export function Input({
-    name,
-    type,
-    disabled,
-    value,
+export function SpanData({
+    children,
+    className,
 }: {
-    type: HTMLInputTypeAttribute;
-    name: string;
-    disabled: boolean;
-    value: string;
+    children: React.ReactNode;
+    className?: string;
 }) {
     return (
-        <input
-            className="w-full px-2 py-1 transition-colors ease-in-out duration-500 outline-none rounded-md text-gray-950 border border-gray-400 bg-zinc-100 focus:border-violet-900 drop-shadow"
-            type={type}
-            name={name}
-            id={name}
-            value={value}
-            disabled={disabled}
-        />
+        <span
+            className={`block font-normal px-2 py-1 rounded text-gray-950 border border-gray-400 bg-zinc-50 ${
+                className ? className : ""
+            }`}
+        >
+            {children}
+        </span>
     );
 }
