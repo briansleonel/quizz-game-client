@@ -8,6 +8,7 @@ interface Props {
     closeModal: () => void;
     title: string;
     children: React.ReactNode;
+    className?: string;
 }
 
 export default function ModalDialog({
@@ -15,6 +16,7 @@ export default function ModalDialog({
     isOpen,
     title,
     children,
+    className,
 }: Props) {
     return (
         <Transition appear show={isOpen} as={Fragment}>
@@ -32,7 +34,7 @@ export default function ModalDialog({
                 </Transition.Child>
 
                 <div className="fixed z-50 inset-0 overflow-y-auto">
-                    <div className="flex min-h-full items-center justify-center p-4 text-center">
+                    <div className="flex min-h-full items-center justify-center p-2 text-center">
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
@@ -42,23 +44,29 @@ export default function ModalDialog({
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="w-full md:w-8/12 lg:w-6/12 transform overflow-hidden bg-white p-2 text-left align-middle transition-all rounded shadow-md shadow-gray-950/30">
+                            <Dialog.Panel
+                                className={`w-full md:max-w-md lg:max-w-lg transform overflow-hidden bg-white text-left align-middle transition-all rounded shadow-md shadow-gray-950/30 ${
+                                    className ? className : ""
+                                }`}
+                            >
                                 <div className="flex justify-between items-center border-b border-neutral-100">
                                     <Dialog.Title
                                         as="h3"
-                                        className="font-normal text-base uppercase pl-2 text-gray-900"
+                                        className="font-normal text-sm uppercase pl-2 text-gray-900"
                                     >
                                         {title}
                                     </Dialog.Title>
                                     <Button
-                                        className="bg-white text-zinc-950 hover:bg-white hover:drop-shadow transition-all shadow-none drop-shadow-none"
+                                        className="bg-white text-zinc-800 hover:bg-white hover:drop-shadow transition-all shadow-none drop-shadow-none text-lg"
                                         onClick={closeModal}
                                     >
-                                        <XLg className="text-xl" />
+                                        <XLg />
                                     </Button>
                                 </div>
 
-                                <div className="mt-2 p-2 flex flex-col items-center">{children}</div>
+                                <div className="p-4 flex flex-col items-center">
+                                    {children}
+                                </div>
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>
