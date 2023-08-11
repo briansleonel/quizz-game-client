@@ -1,6 +1,6 @@
 import { QueryFetch } from "@/services/user.service";
 import { useAppSelector } from "@/store/hooks.redux";
-import { APIResponse, ApiPagination, PaginationFetch } from "@/types/api";
+import { APIResponse, ApiPagination } from "@/types/api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 

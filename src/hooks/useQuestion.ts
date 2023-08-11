@@ -1,8 +1,8 @@
-import { toastError, toastSuccess } from "@/libs/toast";
 import questionService from "@/services/question.service";
 import { IQuestion, IQuestionId } from "@/types/question";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigationRouter } from "./useNavigationRouter";
+import { toastError, toastSuccess } from "@/libs/sonner/sonner.toast";
 
 const PATH_NAVIGATION = "/dashboard/question/";
 

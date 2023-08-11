@@ -1,6 +1,6 @@
+import { toastError, toastSuccess } from "@/libs/sonner/sonner.toast";
 import userService from "@/services/user.service";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 
 export function useDeleteUserMutation() {
     const queryClient = useQueryClient();
@@ -9,13 +9,13 @@ export function useDeleteUserMutation() {
         mutationFn: userService.deleteUser,
         onSuccess: (data) => {
             console.log(data);
-            toast.success(data.message);
+            toastSuccess(data.message);
             // Actualizar los datos después de eliminar un usuario
             queryClient.invalidateQueries({ queryKey: ["users"] });
         },
         onError: (err) => {
             if (err instanceof Error) {
-                toast.error(err.message);
+                toastError(err.message);
             }
         },
     });
@@ -30,13 +30,13 @@ export function useChangeVerificationUser() {
         mutationFn: userService.changeVerification,
         onSuccess: (data) => {
             console.log(data);
-            toast.success(data.message);
+            toastSuccess(data.message);
             // Actualizar los datos después de eliminar un usuario
             queryClient.invalidateQueries({ queryKey: ["users"] });
         },
         onError: (err) => {
             if (err instanceof Error) {
-                toast.error(err.message);
+                toastError(err.message);
             }
         },
     });
