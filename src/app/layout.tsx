@@ -1,7 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { ProviderRedux } from "@/store/ProviderRedux";
-import "react-toastify/dist/ReactToastify.css";
 import { TanStackQueryProvider } from "@/libs/TanStackQueryProvider";
 import Navbar from "@/components/navbar/Navbar";
 import Container from "@/components/layout/Container";
