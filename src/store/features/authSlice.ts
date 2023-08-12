@@ -1,3 +1,4 @@
+import { loadStateAuthLocalStorage } from "@/libs/state.localStorage";
 import { IUserLogged } from "@/types/user";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -8,8 +9,8 @@ interface State {
 }
 
 const initialState: State = {
-    user: { _id: "", role: "" },
-    isAuthenticated: false,
+    user: loadStateAuthLocalStorage() || { _id: "", role: "" }, // Si se encuentra un usuario en localstorage se lo carga
+    isAuthenticated: loadStateAuthLocalStorage() !== undefined, // Si hay un usuario en localstorage se indica que esta autenticado
     errors: [],
 };
 

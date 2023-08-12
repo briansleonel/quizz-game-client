@@ -1,6 +1,7 @@
+import { useAppSelector } from "@/store/hooks.redux";
 import { IQuestion, IQuestionId } from "@/types/question";
 import { IQuestionCategory } from "@/types/questionCategory";
-import { getUserAuthStorage } from "./localStorageLogin";
+import { loadStateAuthLocalStorage } from "./state.localStorage";
 
 export function convertToQuestion({
     category,
@@ -8,12 +9,14 @@ export function convertToQuestion({
     options,
     question,
     description,
+    user,
 }: {
     category: IQuestionCategory;
     question: string;
     options: Array<string>;
     correctOption: string;
     description: string;
+    user?: string;
 }) {
     const newQuestion: IQuestion = {
         category: category,
@@ -21,7 +24,7 @@ export function convertToQuestion({
         description: description,
         options: orderOptions(options, correctOption),
         correct: 0,
-        user: getUserAuthStorage()?._id!,
+        user: user ? user : loadStateAuthLocalStorage()?._id!,
     };
 
     return newQuestion;

@@ -13,6 +13,7 @@ import {
     toastSuccess,
     toastWarning,
 } from "@/libs/sonner/sonner.toast";
+import { useAppSelector } from "@/store/hooks.redux";
 
 export default function useQuestionForm({
     question,
@@ -21,6 +22,7 @@ export default function useQuestionForm({
     question?: IQuestionId;
     edit: boolean;
 }) {
+    const { user } = useAppSelector((state) => state.auth);
     // Array con todas las opciones disponibles
     const [options, setOptions] = useState<Array<string>>(
         question ? question.options : []
@@ -139,9 +141,7 @@ export default function useQuestionForm({
                 if (correctOption !== "") {
                     if (selectedCategory._id !== "") {
                         if (edit) {
-                            console.log("Editando...", options);
-
-                            const update = convertToQuestionwithId({
+                            const updateQuestion = convertToQuestionwithId({
                                 id: question?._id!,
                                 question: inputQuestion.inputProps.value,
                                 category: selectedCategory,
@@ -150,15 +150,17 @@ export default function useQuestionForm({
                                 correctOption,
                                 options,
                             });
-                            questionMutations.handlerUpdateQuestion(update);
+                            questionMutations.handlerUpdateQuestion(
+                                updateQuestion
+                            );
                         } else {
-                            console.log("Nuevo...", options);
                             const newQuestion = convertToQuestion({
                                 question: inputQuestion.inputProps.value,
                                 category: selectedCategory,
                                 description: inputDescription.inputProps.value,
                                 correctOption,
                                 options,
+                                user: user._id,
                             });
                             questionMutations.handlerAddQuestion(newQuestion);
                         }

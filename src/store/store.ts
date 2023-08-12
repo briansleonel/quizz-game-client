@@ -11,5 +11,12 @@ export const store = configureStore({
     },
 });
 
+/*
+// Cada vez que se actualice el estado de auth de usuario, lo guardaremos el localstorage
+store.subscribe(function () {
+    saveState(store.getState().auth.user);
+});
+*/
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
