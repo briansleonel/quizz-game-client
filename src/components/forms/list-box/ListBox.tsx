@@ -5,7 +5,6 @@ import { Check, ChevronExpand } from "react-bootstrap-icons";
 interface Props<T> {
     selected: T | undefined;
     setSelected: (arg: T) => void;
-    options: Array<T>;
     valueShow: string;
     children: React.ReactNode;
 }
@@ -13,7 +12,6 @@ interface Props<T> {
 export function ListBox<S>({
     selected,
     setSelected,
-    options,
     valueShow,
     children,
 }: Props<S>) {
@@ -23,8 +21,7 @@ export function ListBox<S>({
                 <div className="relative mt-1">
                     <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 border border-gray-400 text-left shadow-md focus:outline-none sm:text-sm">
                         <span className="block truncate">
-                            {valueShow.toUpperCase() ||
-                                "Seleccione una opción"}
+                            {valueShow.toUpperCase() || "Seleccione una opción"}
                         </span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                             <ChevronExpand
