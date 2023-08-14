@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./features/authSlice";
 import counterSlice from "./features/counter.slice";
 import filtersSlice from "./features/filters.slice";
+import questionFilterSlice from "./features/filters.question";
 
 export const store = configureStore({
     reducer: {
         auth: authSlice,
         counter: counterSlice,
         fitlers: filtersSlice,
+        questionFilters: questionFilterSlice,
     },
 });
 
