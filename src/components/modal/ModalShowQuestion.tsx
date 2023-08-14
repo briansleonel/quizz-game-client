@@ -1,10 +1,8 @@
-import { HTMLInputTypeAttribute, useState } from "react";
+import { useState } from "react";
 import Button from "../button/ButtonPrimary";
 import {
     ArrowReturnLeft,
-    Check,
     Check2,
-    Check2Circle,
     Eye,
     PencilSquare,
     Trash3Fill,
@@ -21,7 +19,7 @@ export default function ModalShowQuestion({
     handleDelete: (id: string) => void;
     handleEdit: (id: string) => void;
 }) {
-    let [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     function closeModal() {
         setIsOpen(false);
