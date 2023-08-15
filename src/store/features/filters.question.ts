@@ -51,6 +51,12 @@ const questionFilterSlice = createSlice({
         ) {
             state.category = action.payload.category;
         },
+        resetQuestionFilters: (state) => {
+            state.category = "all";
+            state.recents = true;
+            state.user = loadStateAuthLocalStorage()?._id || "all";
+            state.verified = Verified.ALL;
+        },
     },
 });
 
@@ -60,6 +66,7 @@ export const {
     changeQuestionFilterUser,
     changeQuestionFilterVerified,
     changeQuestionSearchText,
+    resetQuestionFilters,
 } = questionFilterSlice.actions;
 
 export default questionFilterSlice.reducer;
