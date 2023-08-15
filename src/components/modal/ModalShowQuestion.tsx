@@ -81,6 +81,13 @@ export default function ModalShowQuestion({
                         </SpanData>
                     </div>
 
+                    {question.description && (
+                        <div>
+                            <p className="block mb-1 font-light">Descripción</p>
+                            <SpanData>{question.description}</SpanData>
+                        </div>
+                    )}
+
                     <div className="flex flex-col-reverse md:flex-row gap-2 mt-4">
                         <Button
                             className="bg-red-600 hover:bg-red-500 flex justify-center items-center gap-2 w-full text-sm"
