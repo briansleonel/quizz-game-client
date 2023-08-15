@@ -1,8 +1,7 @@
 "use client";
 
 import AlertDanger from "@/components/alert/AlertDanger";
-import useDataTable from "@/hooks/useDataTable";
-import questionService from "@/services/question.service";
+import { useDataTableQuestion } from "@/hooks/useDataTable";
 import TableGeneric from "../TableGeneric";
 import Pagination from "../Pagination";
 import { getColumnDefinitionQuestion } from "./getColumnDef";
@@ -15,10 +14,8 @@ import { useRouter } from "next/navigation";
 export default function TableQuestions() {
     const router = useRouter();
 
-    const { data, error, isLoading, pagination, setPagination } = useDataTable({
-        functionFetch: questionService.getQuestions,
-        queryKey: "questions",
-    });
+    const { data, error, isLoading, pagination, setPagination } =
+        useDataTableQuestion();
 
     const deleteQuestionMutation = useDeleteQuestionMutation();
     const changeVerifiedMutation = useChangeVerificationQuestion();
@@ -38,7 +35,7 @@ export default function TableQuestions() {
     const columnDefinition = getColumnDefinitionQuestion({
         handleDelete,
         handleChangeVerification,
-        handleEdit
+        handleEdit,
     });
 
     return (
