@@ -1,25 +1,36 @@
 import { __instanceAxios, endpointsAPI } from "@/config/config";
+import { getQueryQuestion } from "@/libs/query.question";
 import { Verified } from "@/store/features/filters.slice";
 import { APIResponse, PaginationFetch } from "@/types/api";
 import { IQuestion, IQuestionId } from "@/types/question";
 import { isAxiosError } from "axios";
 
-export interface QueryFetch extends PaginationFetch {
+export interface QueryFetchQuestion extends PaginationFetch {
     verified: Verified;
     searchText: string;
+    category: string;
+    user: string;
+    recents: boolean;
 }
 
-async function getQuestions({ limit, page, verified, searchText }: QueryFetch) {
-    // verifico si se debe mostrar los datos verificados
-    const verifiedTransform =
-        verified === Verified.ALL
-            ? ""
-            : verified === Verified.VERIFIED
-            ? "true"
-            : "false";
-
+async function getQuestions({
+    limit,
+    page,
+    verified,
+    searchText,
+    category,
+    recents,
+    user,
+}: QueryFetchQuestion) {
     const paginationData = `?page=${page}&limit=${limit}`;
-    const queryData = `&verified=${verifiedTransform}&text=${searchText}`;
+
+    const queryData = getQueryQuestion({
+        searchText,
+        category,
+        recents,
+        user,
+        verified,
+    });
 
     try {
         const response = await __instanceAxios.get(
