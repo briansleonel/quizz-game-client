@@ -4,7 +4,7 @@ import { Title } from "@/components/layout/Title";
 
 export default function QuestionPage() {
     return (
-        <div className="w-full flex flex-col items-center gap-4 md:gap-6 py-8 px-4 md:p-8">
+        <div className="w-full flex flex-col items-center gap-8 py-10 px-4 md:px-8 md:py-12">
             <Title>Preguntas</Title>
             <FiltersQuestion />
             <TableQuestions />

@@ -45,7 +45,7 @@ export default function TableQuestions() {
             ) : isLoading ? (
                 <p>Cargando data table...</p>
             ) : (
-                <>
+                <div className="w-full">
                     {/*isFetching ? <div>Refreshing...</div> : null*/}
                     {/** Muestro los datos de la tabla */}
                     {data ? (
@@ -62,7 +62,7 @@ export default function TableQuestions() {
                             setPagination={setPagination}
                         />
                     ) : null}
-                </>
+                </div>
             )}
         </>
     );

@@ -44,7 +44,7 @@ export default function TableUsers() {
             ) : isLoading ? (
                 <p>Cargando data table...</p>
             ) : (
-                <>
+                <div className="w-full">
                     {/*isFetching ? <div>Refreshing...</div> : null*/}
                     {/** Muestro los datos de la tabla */}
                     {data ? (
@@ -61,7 +61,7 @@ export default function TableUsers() {
                             setPagination={setPagination}
                         />
                     ) : null}
-                </>
+                </div>
             )}
         </>
     );
