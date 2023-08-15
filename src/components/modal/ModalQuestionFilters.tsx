@@ -9,6 +9,7 @@ import {
     changeQuestionFilterCategory,
     changeQuestionFilterRecent,
     changeQuestionFilterVerified,
+    resetQuestionFilters,
 } from "@/store/features/filters.question";
 import { Filter } from "react-bootstrap-icons";
 import ListBoxCategory from "../forms/list-box/ListBoxCategory";
@@ -44,6 +45,16 @@ export default function ModalQuestionFilters() {
         setIsOpen(true);
     }
 
+    /**
+     * Permite resetear todos los filtros de búsqueda de preguntas
+     */
+    function resetFilters() {
+        dispatch(resetQuestionFilters());
+        setSelectedCategory(allCategories);
+        setSelectedRecent(optionsRecents[0]);
+        setSelectedVerified(optionsVerified[0]);
+    }
+
     // Effect to Verified
     useEffect(() => {
         dispatch(
@@ -76,7 +87,7 @@ export default function ModalQuestionFilters() {
                 type="button"
                 title="Filtros"
                 onClick={openModal}
-                className="flex items-center justify-center gap-2 text-sm bg-white text-neutral-900 drop-shadow hover:bg-neutral-900 hover:text-white"
+                className="flex items-center justify-center gap-2 text-sm !bg-white !text-black border drop-shadow hover:!bg-neutral-900 hover:!text-white hover:border-neutral-900"
             >
                 <Filter className="w-4 h-4" /> <span>Filtrar</span>
             </Button>
@@ -111,6 +122,21 @@ export default function ModalQuestionFilters() {
                             options={optionsRecents}
                         />
                     </Label>
+
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-2 w-full mt-6">
+                        <Button
+                            className="text-sm w-full bg-neutral-900 text-white hover:bg-neutral-800 hover:text-white"
+                            onClick={() => resetFilters()}
+                        >
+                            Limpiar filtros
+                        </Button>
+                        <Button
+                            className="text-sm w-full"
+                            onClick={() => closeModal()}
+                        >
+                            Cerrar
+                        </Button>
+                    </div>
                 </div>
             </ModalDialog>
         </>
