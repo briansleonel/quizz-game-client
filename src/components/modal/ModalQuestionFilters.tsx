@@ -10,7 +10,7 @@ import {
     changeQuestionFilterRecent,
     changeQuestionFilterVerified,
     resetQuestionFilters,
-} from "@/store/features/filters.question";
+} from "@/store/features/filters.question.slice";
 import { Filter } from "react-bootstrap-icons";
 import ListBoxCategory from "../forms/list-box/ListBoxCategory";
 import ListBoxData from "../forms/list-box/ListBoxData";

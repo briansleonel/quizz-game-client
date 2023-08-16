@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./features/authSlice";
 import counterSlice from "./features/counter.slice";
 import filtersSlice from "./features/filters.slice";
-import questionFilterSlice from "./features/filters.question";
+import questionFilterSlice from "./features/filters.question.slice";
 
 export const store = configureStore({
     reducer: {

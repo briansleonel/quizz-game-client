@@ -5,7 +5,7 @@ import Button from "../button/ButtonPrimary";
 import { SearchInput } from "../forms/input/SearchInput";
 import { useFormInput } from "@/hooks/useFormInput";
 import { useAppDispatch, useAppSelector } from "@/store/hooks.redux";
-import { changeQuestionSearchText } from "@/store/features/filters.question";
+import { changeQuestionSearchText } from "@/store/features/filters.question.slice";
 import ModalQuestionFilters from "../modal/ModalQuestionFilters";
 import { useNavigationRouter } from "@/hooks/useNavigationRouter";
 
@@ -28,6 +28,7 @@ export default function FiltersQuestion() {
 
     const resetSearchInput = () => {
         searchInput.resetInput();
+        dispatch(changeQuestionSearchText({ searchText: "" }));
     };
 
     const addNewQuestion = () => {
