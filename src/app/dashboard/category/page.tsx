@@ -1,10 +1,12 @@
 import CategoryForm from "@/components/forms/category/CategoryForm";
+import ContainerUtil from "@/components/layout/ContainerUtil";
+import { Title } from "@/components/layout/Title";
 
 export default function CategoryPage() {
     return (
-        <div className="w-full flex flex-col items-center justify-center">
-            <h1>Category Page</h1>
+        <ContainerUtil>
+            <Title>Categorías</Title>
             <CategoryForm />
-        </div>
+        </ContainerUtil>
     );
 }
