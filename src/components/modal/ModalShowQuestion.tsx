@@ -77,7 +77,9 @@ export default function ModalShowQuestion({
                     <div>
                         <p className="block mb-1 font-light">Categoría</p>
                         <SpanData>
-                            {question.category.name.toUpperCase()}
+                            {question.category
+                                ? question.category.name.toUpperCase()
+                                : "Debe seleccionar una"}
                         </SpanData>
                     </div>
 

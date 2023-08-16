@@ -31,8 +31,11 @@ export function getColumnDefinitionQuestion({
             header: "Pregunta",
         },
         {
-            accessorFn: (row) => row.category.name.toUpperCase(),
-            accessorKey: "category",
+            accessorFn: (row) =>
+                row.category
+                    ? row.category.name.toUpperCase()
+                    : "Debe seleccionar una",
+            accessorKey: "category.name",
             header: "Categoría",
         },
         /*
