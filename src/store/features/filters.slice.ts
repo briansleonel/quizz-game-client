@@ -20,10 +20,16 @@ const filtersSlice = createSlice({
     name: "filters",
     initialState,
     reducers: {
-        changeSearchText: function (state, action: PayloadAction<State>) {
+        changeSearchText: function (
+            state,
+            action: PayloadAction<{ searchText: string }>
+        ) {
             state.searchText = action.payload.searchText;
         },
-        changeFilterVerified: function (state, action: PayloadAction<State>) {
+        changeFilterVerified: function (
+            state,
+            action: PayloadAction<{ verified: Verified }>
+        ) {
             state.verified = action.payload.verified;
         },
     },
