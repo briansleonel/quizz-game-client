@@ -1,3 +1,4 @@
+import categoryService from "@/services/category.service";
 import questionService from "@/services/question.service";
 import { QueryFetch } from "@/services/user.service";
 import { useAppSelector } from "@/store/hooks.redux";
@@ -59,6 +60,33 @@ export function useDataTableQuestion() {
                 category: filtersQuestion.category,
                 recents: filtersQuestion.recents,
                 user: filtersQuestion.user,
+            }),
+        keepPreviousData: true,
+    });
+
+    /**
+     * Hook para controlar el momento en el que se reciben los datos y establecer los datos de paginación
+     */
+    useEffect(() => {
+        if (data) {
+            setPagination(data.pagination);
+        }
+    }, [data]);
+
+    return { pagination, setPagination, data, isLoading, error, isFetching };
+}
+
+export function useDataTableCategory() {
+    // datos de paginación recibidos por la api
+    const [pagination, setPagination] = useState<ApiPagination>();
+
+    // react-query para la obtención de datos desde la api
+    const { data, isLoading, error, isFetching } = useQuery({
+        queryKey: ["categories", pagination],
+        queryFn: () =>
+            categoryService.getAllCategoriesPagination({
+                limit: pagination?.limit || 10,
+                page: pagination?.page || 1,
             }),
         keepPreviousData: true,
     });
