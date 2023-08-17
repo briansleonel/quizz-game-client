@@ -22,8 +22,9 @@ const userSlice = createSlice({
             state.isAuthenticated = true;
             state.user = payload.payload;
         },
-        logout: (state, payload) => {
-            console.log(payload);
+        logout: (state) => {
+            state.isAuthenticated = false;
+            state.user = { _id: "", role: "" };
         },
     },
 });
