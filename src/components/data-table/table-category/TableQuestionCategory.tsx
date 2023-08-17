@@ -1,17 +1,15 @@
 "use client";
 
 import AlertDanger from "@/components/alert/AlertDanger";
-import categoryService from "@/services/category.service";
-import { useQuery } from "@tanstack/react-query";
 import TableGeneric from "../TableGeneric";
 import { getColumnDefinitionCategory } from "./getColumnDef";
 import { useDeleteCategoryMutation } from "@/hooks/useQuestionCategory";
+import { useDataTableCategory } from "@/hooks/useDataTable";
+import Pagination from "../Pagination";
 
 export default function TableQuestionCategory() {
-    const { data, error, isLoading } = useQuery({
-        queryKey: ["categories"],
-        queryFn: categoryService.getAllCategoriesPagination,
-    });
+    const { data, error, isLoading, pagination, setPagination } =
+        useDataTableCategory();
 
     const deleteCategoryMutation = useDeleteCategoryMutation();
 
@@ -40,12 +38,12 @@ export default function TableQuestionCategory() {
                     ) : null}
 
                     {/** Muestro la paginación de datos */}
-                    {/*pagination ? (
+                    {pagination ? (
                         <Pagination
                             pagination={pagination}
                             setPagination={setPagination}
                         />
-                    ) : null*/}
+                    ) : null}
                 </div>
             )}
         </>
