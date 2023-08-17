@@ -23,16 +23,14 @@ export default function RootLayout({
     return (
         <html lang="es">
             <body className={inter.className}>
-                <div className="">
-                    {/*<Toaster position="top-right" reverseOrder={false} />*/}
-                    <ToasterSonner />
-                    <TanStackQueryProvider>
-                        <ProviderRedux>
-                            <Navbar />
-                            <Container>{children}</Container>
-                        </ProviderRedux>
-                    </TanStackQueryProvider>
-                </div>
+                {/*<Toaster position="top-right" reverseOrder={false} />*/}
+                <ToasterSonner />
+                <TanStackQueryProvider>
+                    <ProviderRedux>
+                        <Navbar />
+                        <Container>{children}</Container>
+                    </ProviderRedux>
+                </TanStackQueryProvider>
             </body>
         </html>
     );

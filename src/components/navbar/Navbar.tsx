@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
+    BoxArrowRight,
     Diagram2Fill,
     GearFill,
     House,
@@ -14,8 +15,10 @@ import {
 } from "react-bootstrap-icons";
 import logo from "@/assets/quiz-2.jpg";
 import { NavLink } from "@/types/util";
-import ButtonLink from "../button/ButtonLink";
 import { useAppSelector } from "@/store/hooks.redux";
+import Button from "../button/ButtonPrimary";
+import { useLogout } from "@/hooks/useLogout";
+import { useRouter } from "next/navigation";
 
 const menuItems: Array<NavLink> = [
     { name: "Inicio", icon: House, href: "/dashboard" },
@@ -28,8 +31,6 @@ const menuItems: Array<NavLink> = [
 export default function Navbar() {
     const [showSidebar, setShowSidebar] = useState(false);
 
-    const { isAuthenticated } = useAppSelector((state) => state.auth);
-
     return (
         <nav className="w-full h-16 flex justify-between z-20 p-4 bg-stone-950 text-white md:px-16 lg:px-32 sticky top-0">
             {/** Logo main */}
@@ -41,24 +42,15 @@ export default function Navbar() {
                 <span>Quizz Game</span>
             </Link>
 
-            <button
-                className="cursor-pointer w-8 h-8 text-slate-300 block md:hidden"
+            <Button
+                className="cursor-pointer w-8 h-8 text-slate-300 block md:hidden bg-transparent hover:bg-transparent p-0"
                 onClick={() => setShowSidebar(!showSidebar)}
             >
                 <List className="w-full h-full" />
-            </button>
+            </Button>
 
             <div className="hidden md:flex items-center gap-4">
-                <ButtonLink
-                    href="/login"
-                    text="Iniciar sesión"
-                    className="text-sm font-light uppercase bg-stone-950 border border-white hover:bg-white hover:text-black"
-                />
-                <ButtonLink
-                    href="/register"
-                    text="Crear cuenta"
-                    className="text-sm font-light uppercase bg-indigo-800 hover:bg-indigo-700 hover:text-white"
-                />
+                <ButtonsLoginRegisterLogout />
             </div>
 
             {/** Menu --- lo muestro si un usuario esta autenticado  */}
@@ -139,19 +131,71 @@ const Sidebar = ({
                 {/** Buttons Login/Register */}
                 {showSidebar && (
                     <div className="flex flex-col gap-4 md:hidden md:gap-2 px-12 pt-4 pb-12 md:p-4">
-                        <ButtonLink
-                            href="/login"
-                            text="Iniciar sesión"
-                            className="text-sm font-light uppercase bg-stone-950 border border-white hover:bg-white hover:text-black"
-                        />
-                        <ButtonLink
-                            href="/register"
-                            text="Crear cuenta"
-                            className="text-sm font-light uppercase bg-indigo-800 hover:bg-indigo-700 hover:text-white"
-                        />
+                        <ButtonsLoginRegisterLogout />
                     </div>
                 )}
             </div>
         </aside>
     );
 };
+
+function ButtonsLoginRegisterLogout() {
+    const [isClient, setIsClient] = useState(false);
+    const { isAuthenticated } = useAppSelector((state) => state.auth);
+    const { handlerLogout } = useLogout();
+
+    const router = useRouter();
+
+    const goToRegister = () => {
+        router.push("/register");
+    };
+
+    const goToLogin = () => {
+        router.push("/login");
+    };
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+    return (
+        <>
+            {!isAuthenticated && isClient && (
+                <>
+                    <Button
+                        className="text-sm font-light uppercase bg-stone-950 border border-white hover:bg-white hover:text-black px-4"
+                        onClick={() => goToLogin()}
+                    >
+                        Ingresar
+                    </Button>
+
+                    <Button
+                        className="text-sm font-light uppercase bg-indigo-800 hover:bg-indigo-700 hover:text-white px-4"
+                        onClick={() => goToRegister()}
+                    >
+                        Crear Cuenta
+                    </Button>
+                </>
+            )}
+            {isAuthenticated && isClient && (
+                <Button
+                    className="bg-red-600 hover:bg-red-500 text-sm font-light uppercase flex items-center justify-center gap-2 px-4"
+                    onClick={() => handlerLogout()}
+                >
+                    <BoxArrowRight />
+                    <span>Cerrar Sesión</span>
+                </Button>
+            )}
+        </>
+    );
+}
+
+/*
+{isAuthenticated && (
+                    <Button
+                        className="bg-red-600 hover:bg-red-500 text-sm font-light uppercase flex items-center justify-center gap-2 px-4"
+                        onClick={() => handlerLogout()}
+                    >
+                        <BoxArrowRight />
+                        <span>Cerrar Sesión</span>
+                    </Button>
+                )}
+*/
