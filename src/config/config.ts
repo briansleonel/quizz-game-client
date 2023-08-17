@@ -22,6 +22,7 @@ export const __instanceAxios = axios.create({
 export enum endpointsAPI {
     USER = "user",
     LOGIN = "login",
+    LOGOUT = "logout",
     REGISTER = "register",
     QUESTION = "question",
     CATEGORY = "category",
