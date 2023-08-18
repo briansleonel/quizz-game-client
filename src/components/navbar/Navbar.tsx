@@ -70,6 +70,7 @@ const Sidebar = ({
     showSidebar: boolean;
     setShowSidebar: (state: boolean) => void;
 }) => {
+    const { isAuthenticated } = useAppSelector((state) => state.auth);
     return (
         <aside
             className={`flex flex-col gap-8 text-white bg-stone-950 w-full h-screen md:h-[calc(100vh-4rem)] transition-all duration-1000 ease-in-out fixed top-0 md:top-16 ${
