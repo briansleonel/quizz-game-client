@@ -23,7 +23,7 @@ export function useLogoutMutation() {
                 dispatch(logout()); // elimino los datos de la store
                 deleteAuthLocalStorage(); // elimino los datos de localstorage
                 toastSuccess(data.message);
-                router.push("/"); // redirecciono a la página /dashboard
+                router.push("/login"); // redirecciono a la página /dashboard
             } catch (error) {
                 if (error instanceof Error) toastError(error.message);
             }
