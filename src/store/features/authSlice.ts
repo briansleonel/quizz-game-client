@@ -9,7 +9,12 @@ interface State {
 }
 
 const initialState: State = {
-    user: loadStateAuthLocalStorage() || { _id: "", role: "" }, // Si se encuentra un usuario en localstorage se lo carga
+    user: loadStateAuthLocalStorage() || {
+        _id: "",
+        role: "",
+        fullName: "",
+        username: "",
+    }, // Si se encuentra un usuario en localstorage se lo carga
     isAuthenticated: loadStateAuthLocalStorage() !== undefined, // Si hay un usuario en localstorage se indica que esta autenticado
     errors: [],
 };
@@ -24,7 +29,7 @@ const userSlice = createSlice({
         },
         logout: (state) => {
             state.isAuthenticated = false;
-            state.user = { _id: "", role: "" };
+            state.user = { _id: "", role: "", fullName: "", username: "" };
         },
     },
 });

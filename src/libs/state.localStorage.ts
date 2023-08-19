@@ -2,6 +2,8 @@
 interface Auth {
     _id: string;
     role: string;
+    fullName: string;
+    username: string;
 }
 
 const keyAuth = "auth";

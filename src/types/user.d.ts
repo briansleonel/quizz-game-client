@@ -12,4 +12,8 @@ export interface IUser extends ILogin {
     _id: string;
 }
 
-export type IUserLogged = Pick<IUser, "_id" | "role">;
+export type IUserData = Pick<IUser, "_id" | "role" | "username">;
+
+export interface IUserLogged extends IUserData {
+    fullName: string;
+}
