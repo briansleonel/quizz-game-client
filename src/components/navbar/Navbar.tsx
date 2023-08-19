@@ -8,6 +8,7 @@ import logo from "@/assets/quiz-2.jpg";
 import Button from "../button/ButtonPrimary";
 import NavLinks from "./NavLinks";
 import ButtonsLoginRegisterLogout from "./ButtonsLoginRegisterLogout";
+import Username from "./Username";
 
 export default function Navbar() {
     const [showSidebar, setShowSidebar] = useState(false);
@@ -31,6 +32,7 @@ export default function Navbar() {
             </Button>
 
             <div className="hidden md:flex items-center gap-4">
+                <Username />
                 <ButtonsLoginRegisterLogout />
             </div>
 
@@ -82,6 +84,7 @@ const Sidebar = ({
                 {/** Buttons Login/Register */}
                 {showSidebar && (
                     <div className="flex flex-col gap-4 md:hidden md:gap-2 px-12 pt-4 pb-12 md:p-4">
+                        <Username />
                         <ButtonsLoginRegisterLogout />
                     </div>
                 )}
