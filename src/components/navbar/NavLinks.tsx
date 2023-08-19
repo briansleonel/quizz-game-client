@@ -9,10 +9,12 @@ import {
     House,
     Journals,
     PeopleFill,
+    Speedometer2,
 } from "react-bootstrap-icons";
 
 const menuItems: Array<NavLink> = [
-    { name: "Inicio", icon: House, href: "/dashboard" },
+    { name: "Inicio", icon: House, href: "/" },
+    { name: "Dashboard", icon: Speedometer2, href: "/dashboard" },
     { name: "Categorías", icon: Diagram2Fill, href: "/dashboard/category" },
     { name: "Preguntas", icon: Journals, href: "/dashboard/question" },
     { name: "Usuarios", icon: PeopleFill, href: "/dashboard/user" },
@@ -39,31 +41,43 @@ export default function NavLinks({
     }, []);
     return (
         <>
-            {isAuthenticated && isClient && (
+            {isClient && (
                 <div className="flex flex-col gap-2 relative">
                     {menuItems.map((link, i) => {
-                        if (link.href === "/dashboard/user") {
-                            if (user.role === Role.ADMIN) {
-                                return (
-                                    <LinkComponent
-                                        key={link.name}
-                                        i={i}
-                                        link={link}
-                                        setShowSidebar={setShowSidebar}
-                                        showSidebar={showSidebar}
-                                    />
-                                );
-                            } else return null;
+                        if (link.href === "/") {
+                            return (
+                                <LinkComponent
+                                    key={link.name}
+                                    i={i}
+                                    link={link}
+                                    setShowSidebar={setShowSidebar}
+                                    showSidebar={showSidebar}
+                                />
+                            );
+                        } else if (isAuthenticated) {
+                            if (link.href === "/dashboard/user") {
+                                if (user.role === Role.ADMIN) {
+                                    return (
+                                        <LinkComponent
+                                            key={link.name}
+                                            i={i}
+                                            link={link}
+                                            setShowSidebar={setShowSidebar}
+                                            showSidebar={showSidebar}
+                                        />
+                                    );
+                                } else return null;
+                            }
+                            return (
+                                <LinkComponent
+                                    key={link.name}
+                                    i={i}
+                                    link={link}
+                                    setShowSidebar={setShowSidebar}
+                                    showSidebar={showSidebar}
+                                />
+                            );
                         }
-                        return (
-                            <LinkComponent
-                                key={link.name}
-                                i={i}
-                                link={link}
-                                setShowSidebar={setShowSidebar}
-                                showSidebar={showSidebar}
-                            />
-                        );
                     })}
                 </div>
             )}
