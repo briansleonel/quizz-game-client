@@ -2,6 +2,7 @@ import { toastError, toastSuccess } from "@/libs/sonner/sonner.toast";
 import { saveStateAuthLocalStorage } from "@/libs/state.localStorage";
 import userService from "@/services/user.service";
 import { login } from "@/store/features/authSlice";
+import { resetQuestionFilters } from "@/store/features/filters.question.slice";
 import { useAppDispatch } from "@/store/hooks.redux";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -21,6 +22,7 @@ export function useLoginMutation() {
         mutationFn: userService.login,
         onSuccess: (data, variables, context) => {
             try {
+                dispatch(resetQuestionFilters()); // reseteo los filtros de búsqueda
                 saveStateAuthLocalStorage(data.data);
                 dispatch(login(data.data)); // guardo los datos de login en el estado global de la aplicación
                 toastSuccess(data.message);
