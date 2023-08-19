@@ -13,7 +13,7 @@ const initialState: State = {
     category: "all",
     recents: true,
     searchText: "",
-    user: loadStateAuthLocalStorage()?._id || "all",
+    user: loadStateAuthLocalStorage()?._id || "",
     verified: Verified.ALL,
 };
 
@@ -54,7 +54,7 @@ const questionFilterSlice = createSlice({
         resetQuestionFilters: (state) => {
             state.category = "all";
             state.recents = true;
-            state.user = loadStateAuthLocalStorage()?._id || "all";
+            state.user = loadStateAuthLocalStorage()?._id || "";
             state.verified = Verified.ALL;
         },
     },
