@@ -10,12 +10,23 @@ import {
     useDeleteQuestionMutation,
 } from "@/hooks/useQuestion";
 import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/store/hooks.redux";
+import { useEffect } from "react";
+import { changeQuestionFilterUser } from "@/store/features/filters.question.slice";
 
 export default function TableQuestions() {
     const router = useRouter();
 
     const { data, error, isLoading, pagination, setPagination } =
         useDataTableQuestion();
+
+    const dispatch = useAppDispatch();
+    const { user } = useAppSelector((state) => state.auth);
+
+    // establezco el filtro para mostrar las preguntas solo del usuario autenticado
+    useEffect(() => {
+        dispatch(changeQuestionFilterUser({ user: user._id }));
+    }, [dispatch, user]);
 
     const deleteQuestionMutation = useDeleteQuestionMutation();
     const changeVerifiedMutation = useChangeVerificationQuestion();
