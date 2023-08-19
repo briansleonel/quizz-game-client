@@ -5,6 +5,8 @@ import {
     Trash3Fill,
 } from "react-bootstrap-icons";
 import Button from "../button/ButtonPrimary";
+import { useAppSelector } from "@/store/hooks.redux";
+import { Role } from "@/libs/enums/role.enum";
 
 interface Props {
     verified: boolean;
@@ -21,6 +23,7 @@ export default function GroupButtonActions({
     handleDelete,
     handleEdit,
 }: Props) {
+    const { user } = useAppSelector((state) => state.auth);
     return (
         <div className="flex gap-2 justify-center">
             <Button
@@ -37,13 +40,15 @@ export default function GroupButtonActions({
             >
                 <Trash3Fill />
             </Button>
-            <Button
-                className="bg-sky-600 hover:bg-sky-500"
-                title="Cambiar verificación"
-                onClick={() => handleChangeVerification(id)}
-            >
-                {verified ? <HandThumbsDown /> : <HandThumbsUp />}
-            </Button>
+            {user.role === Role.ADMIN && (
+                <Button
+                    className="bg-sky-600 hover:bg-sky-500"
+                    title="Cambiar verificación"
+                    onClick={() => handleChangeVerification(id)}
+                >
+                    {verified ? <HandThumbsDown /> : <HandThumbsUp />}
+                </Button>
+            )}
         </div>
     );
 }
