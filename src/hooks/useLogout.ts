@@ -3,7 +3,7 @@ import { deleteAuthLocalStorage } from "@/libs/state.localStorage";
 import userService from "@/services/user.service";
 import { logout } from "@/store/features/authSlice";
 import { useAppDispatch } from "@/store/hooks.redux";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 /**
@@ -16,6 +16,8 @@ export function useLogoutMutation() {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
+    const queryClient = useQueryClient()
+
     const logoutMutation = useMutation({
         mutationFn: userService.logout,
         onSuccess: (data, variables, context) => {
@@ -24,6 +26,8 @@ export function useLogoutMutation() {
                 deleteAuthLocalStorage(); // elimino los datos de localstorage
                 toastSuccess(data.message);
                 router.push("/login"); // redirecciono a la página /dashboard
+                //queryCache.clear();
+                queryClient.clear()
             } catch (error) {
                 if (error instanceof Error) toastError(error.message);
             }
