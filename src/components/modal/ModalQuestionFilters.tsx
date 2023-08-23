@@ -4,10 +4,11 @@ import ModalDialog from "./ModalDialog";
 import { IQuestionCategory } from "@/types/questionCategory";
 import { optionsRecents, optionsVerified } from "@/libs/enums/filter.enum";
 import { IData } from "@/types/util";
-import { useAppDispatch } from "@/store/hooks.redux";
+import { useAppDispatch, useAppSelector } from "@/store/hooks.redux";
 import {
     changeQuestionFilterCategory,
     changeQuestionFilterRecent,
+    changeQuestionFilterUser,
     changeQuestionFilterVerified,
     resetQuestionFilters,
 } from "@/store/features/filters.question.slice";
@@ -15,14 +16,19 @@ import { Filter } from "react-bootstrap-icons";
 import ListBoxCategory from "../forms/list-box/ListBoxCategory";
 import ListBoxData from "../forms/list-box/ListBoxData";
 import Label from "../forms/question/Label";
+import { Role } from "@/libs/enums/role.enum";
 
 const allCategories: IQuestionCategory = {
     _id: "all",
     name: "Todas las categorías",
 };
 
+const users: Array<IData> = [{ label: "Todos", value: "all" }];
+
 export default function ModalQuestionFilters() {
     const dispatch = useAppDispatch();
+
+    const { user } = useAppSelector((state) => state.auth);
 
     // Modal State
     const [isOpen, setIsOpen] = useState(false);
@@ -37,6 +43,8 @@ export default function ModalQuestionFilters() {
         optionsRecents[0]
     );
 
+    const [selectedUser, setSelectedUser] = useState<IData>(users[0]);
+
     function closeModal() {
         setIsOpen(false);
     }
@@ -44,6 +52,11 @@ export default function ModalQuestionFilters() {
     function openModal() {
         setIsOpen(true);
     }
+
+    useEffect(() => {
+        if (user.role === Role.ADMIN)
+            users.push({ label: "Solo mías", value: user._id });
+    }, [user]);
 
     /**
      * Permite resetear todos los filtros de búsqueda de preguntas
@@ -81,6 +94,11 @@ export default function ModalQuestionFilters() {
             })
         );
     }, [selectedRecent, dispatch]);
+
+    useEffect(() => {
+        dispatch(changeQuestionFilterUser({ user: selectedUser.value }));
+    }, [dispatch, selectedUser]);
+
     return (
         <>
             <Button
@@ -122,6 +140,16 @@ export default function ModalQuestionFilters() {
                             options={optionsRecents}
                         />
                     </Label>
+
+                    {user.role === Role.ADMIN && (
+                        <Label label="Usuario" name="user">
+                            <ListBoxData
+                                selected={selectedUser}
+                                setSelected={setSelectedUser}
+                                options={users}
+                            />
+                        </Label>
+                    )}
 
                     <div className="flex flex-col md:flex-row items-center justify-center gap-2 w-full mt-6">
                         <Button
