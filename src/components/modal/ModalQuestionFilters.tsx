@@ -54,8 +54,11 @@ export default function ModalQuestionFilters() {
     }
 
     useEffect(() => {
-        if (user.role === Role.ADMIN)
-            users.push({ label: "Solo mías", value: user._id });
+        const mias = { label: "Solo mías", value: user._id };
+        if (user.role === Role.ADMIN && !users.includes(mias)) {
+            users.unshift(mias);
+            setSelectedUser(mias);
+        }
     }, [user]);
 
     /**
