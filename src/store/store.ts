@@ -3,6 +3,7 @@ import authSlice from "./features/authSlice";
 import counterSlice from "./features/counter.slice";
 import filtersSlice from "./features/filters.slice";
 import questionFilterSlice from "./features/filters.question.slice";
+import gameSlice from "./features/gameSlice";
 
 export const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
         counter: counterSlice,
         fitlers: filtersSlice,
         questionFilters: questionFilterSlice,
+        game: gameSlice,
     },
 });
 
