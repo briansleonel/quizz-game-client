@@ -26,4 +26,5 @@ export enum endpointsAPI {
     REGISTER = "register",
     QUESTION = "question",
     CATEGORY = "category",
+    GAME = "game",
 }
