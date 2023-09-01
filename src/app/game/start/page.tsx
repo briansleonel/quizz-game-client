@@ -60,13 +60,13 @@ export default function StartPage() {
      */
     const onSelectAnswer = (selected: string) => {
         if (!selectedAnswer) {
-            console.log("Se seleccionó una opción");
-            // indico que el usuario ya ha seleccionado una respuesta
+            // indico que el usuario ya ha seleccionado una respuesta en el estado
             setSelectedAnswer(true);
+            // asigno la opción que se selecciono al estado
             setSelectedOption(selected);
+            // Abro la ventana modal con la información
             openModal();
             // verifico si la respuesta seleccionada es correcta
-            //isCorrectAnswer(selected, question.correct);
         }
     };
 
@@ -101,6 +101,14 @@ export default function StartPage() {
                     <ModalGameInformation
                         closeModal={closeModal}
                         isOpen={showModal}
+                        question={{
+                            isCorrect: isCorrectOption(),
+                            correct:
+                                currentQuestion.options[
+                                    currentQuestion.correct
+                                ],
+                            description: currentQuestion.description,
+                        }}
                     />
                 </>
             ) : null}
