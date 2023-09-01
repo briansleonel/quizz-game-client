@@ -1,4 +1,4 @@
-import { IQuestion } from "@/types/question";
+import { IQuestion, IQuestionId } from "@/types/question";
 import { IQuestionCategory } from "@/types/questionCategory";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
@@ -8,8 +8,8 @@ interface IConfigState {
 }
 
 interface State extends IConfigState {
-    questions: Array<IQuestion>;
-    currentQuestion?: IQuestion;
+    questions: Array<IQuestionId>;
+    currentQuestion?: IQuestionId;
     index: number;
     hasNext: boolean;
 }
@@ -27,13 +27,22 @@ const gameSlice = createSlice({
     name: "game",
     initialState,
     reducers: {
-        gameSetConfig: (state, action: PayloadAction<IConfigState>) => {
+        gameSetConfig: function (state, action: PayloadAction<IConfigState>) {
             state.category = action.payload.category;
             state.limit = action.payload.limit;
+        },
+        gameStart: function (
+            state,
+            action: PayloadAction<{ questions: Array<IQuestionId> }>
+        ) {
+            state.questions = action.payload.questions;
+            state.index = 0;
+            state.currentQuestion = state.questions[state.index];
+            state.hasNext = state.questions.length - 1 > state.index;
         },
     },
 });
 
-export const { gameSetConfig } = gameSlice.actions;
+export const { gameSetConfig, gameStart } = gameSlice.actions;
 
 export default gameSlice.reducer;
