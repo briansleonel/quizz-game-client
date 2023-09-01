@@ -10,14 +10,16 @@ import { toastInformation } from "@/libs/sonner/sonner.toast";
 import ButtonTrivia from "@/components/trivia/ButtonTrivia";
 import { useAppDispatch } from "@/store/hooks.redux";
 import { gameSetConfig } from "@/store/features/gameSlice";
+import { useRouter } from "next/navigation";
 
 const allCategories: IQuestionCategory = {
-    _id: "all",
+    _id: "random",
     name: "Aleatorio",
 };
 
 export default function GameForm() {
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     // Input Limit Questions
     const inputLimit = useFormInput("1");
@@ -39,6 +41,7 @@ export default function GameForm() {
                         limit,
                     })
                 );
+                router.push("/game/start");
             } else {
                 toastInformation("Debe seleccionar una categoría");
             }
