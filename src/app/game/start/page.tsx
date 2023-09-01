@@ -1,10 +1,12 @@
 "use client";
 
 import AlertDanger from "@/components/alert/AlertDanger";
+import ModalGameInformation from "@/components/modal/ModalGameInformation";
 import ContentTrivia from "@/components/trivia/ContentTrivia";
 import ReplyButton from "@/components/trivia/ReplyButton";
 import ShowQuestion from "@/components/trivia/ShowQuestion";
 import ShowRandomOptions from "@/components/trivia/ShowRandomOptions";
+import useModal from "@/hooks/useModal";
 import { toastInformation } from "@/libs/sonner/sonner.toast";
 import gameService from "@/services/game.service";
 import { gameStart } from "@/store/features/gameSlice";
@@ -28,6 +30,8 @@ export default function StartPage() {
         queryFn: () =>
             gameService.getQuestionsGame({ category: category._id, limit }),
     });
+
+    const { closeModal, openModal, showModal } = useModal();
 
     /**
      * Se usa el hook en la primer carga del componente.
@@ -60,6 +64,7 @@ export default function StartPage() {
             // indico que el usuario ya ha seleccionado una respuesta
             setSelectedAnswer(true);
             setSelectedOption(selected);
+            openModal();
             // verifico si la respuesta seleccionada es correcta
             //isCorrectAnswer(selected, question.correct);
         }
@@ -78,23 +83,14 @@ export default function StartPage() {
         return false;
     };
 
-    // SI ocurre un error en react-query lo muestro
-    if (error && error instanceof Error) {
-        return (
-            <>
-                <AlertDanger>{error.message}</AlertDanger>
-            </>
-        );
-    }
-
-    if (isLoading) {
-        return <>Cargando preguntas</>;
-    }
-
     return (
-        <>
-            {data && currentQuestion && (
-                <ContentTrivia className="gap-4">
+        <ContentTrivia className="gap-4">
+            {error && error instanceof Error ? (
+                <AlertDanger>{error.message}</AlertDanger>
+            ) : isLoading ? (
+                <>Cargando preguntas</>
+            ) : data && currentQuestion ? (
+                <>
                     <ShowQuestion question={currentQuestion.question} />
                     <ShowRandomOptions
                         isCorrectOption={isCorrectOption}
@@ -102,8 +98,12 @@ export default function StartPage() {
                         selectedOption={selectedOption}
                         onSelectAnswer={onSelectAnswer}
                     />
-                </ContentTrivia>
-            )}
-        </>
+                    <ModalGameInformation
+                        closeModal={closeModal}
+                        isOpen={showModal}
+                    />
+                </>
+            ) : null}
+        </ContentTrivia>
     );
 }
