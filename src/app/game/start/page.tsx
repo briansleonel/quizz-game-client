@@ -4,6 +4,7 @@ import AlertDanger from "@/components/alert/AlertDanger";
 import ContentTrivia from "@/components/trivia/ContentTrivia";
 import ReplyButton from "@/components/trivia/ReplyButton";
 import ShowQuestion from "@/components/trivia/ShowQuestion";
+import ShowRandomOptions from "@/components/trivia/ShowRandomOptions";
 import { toastInformation } from "@/libs/sonner/sonner.toast";
 import gameService from "@/services/game.service";
 import { gameStart } from "@/store/features/gameSlice";
@@ -21,7 +22,6 @@ export default function StartPage() {
 
     const [selectedAnswer, setSelectedAnswer] = useState(false);
     const [selectedOption, setSelectedOption] = useState("");
-    const [randomOptions, setRandomOptions] = useState<Array<string>>([]);
 
     const { data, error, isLoading } = useQuery({
         queryKey: ["game", category, limit],
@@ -51,26 +51,6 @@ export default function StartPage() {
     }, [data, dispatch]);
 
     /**
-     * Se usa este Hook para ver cada vez que se actualiza la pregunta que se muestra actualmente, para poder mostrar las opciones de forma aleatorio
-     */
-    useEffect(() => {
-        const randomOrderOptions = () => {
-            if (currentQuestion) {
-                const newOptions = [...currentQuestion.options];
-                // ordeno de forma aleatorio las opciones
-                const ordered = newOptions.sort(function () {
-                    return Math.random() - 0.5;
-                });
-
-                setRandomOptions(ordered);
-            }
-        };
-        if (currentQuestion) {
-            randomOrderOptions();
-        }
-    }, [currentQuestion]);
-
-    /**
      * Evento producido al seleccionar una respuesta
      * @param selected respuesta seleccionada
      */
@@ -98,18 +78,6 @@ export default function StartPage() {
         return false;
     };
 
-    /**
-     * Permite verificar si la opción que se seleccionó es la misma que la opción que se envía por parámetro. En caso de que lo sea, envía "true", y envía "false" en caso contrario.
-     * @param option opcion
-     * @returns true - false
-     */
-    const isCurrentCheckOption = (option: string) => {
-        return (
-            selectedAnswer &&
-            selectedOption.toLowerCase() === option.toLowerCase()
-        );
-    };
-
     // SI ocurre un error en react-query lo muestro
     if (error && error instanceof Error) {
         return (
@@ -128,20 +96,12 @@ export default function StartPage() {
             {data && currentQuestion && (
                 <ContentTrivia className="gap-4">
                     <ShowQuestion question={currentQuestion.question} />
-                    {randomOptions.map((e, i) => (
-                        <ReplyButton
-                            key={i}
-                            option={e}
-                            onSelectAnswer={onSelectAnswer}
-                            className={
-                                isCurrentCheckOption(e)
-                                    ? isCorrectOption()
-                                        ? "!bg-green-600 hover:!bg-green-600 !text-white !font-medium"
-                                        : "!bg-red-600 hover:!bg-red-600 !text-white !font-medium"
-                                    : ""
-                            }
-                        />
-                    ))}
+                    <ShowRandomOptions
+                        isCorrectOption={isCorrectOption}
+                        selectedAnswer={selectedAnswer}
+                        selectedOption={selectedOption}
+                        onSelectAnswer={onSelectAnswer}
+                    />
                 </ContentTrivia>
             )}
         </>
