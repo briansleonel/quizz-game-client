@@ -9,6 +9,7 @@ interface Props {
     title: string;
     children: React.ReactNode;
     className?: string;
+    showBtnClose?: boolean;
 }
 
 export default function ModalDialog({
@@ -17,6 +18,7 @@ export default function ModalDialog({
     title,
     children,
     className,
+    showBtnClose,
 }: Props) {
     return (
         <Transition appear show={isOpen} as={Fragment}>
@@ -56,12 +58,15 @@ export default function ModalDialog({
                                     >
                                         {title}
                                     </Dialog.Title>
-                                    <Button
-                                        className="bg-white text-zinc-800 hover:bg-white hover:drop-shadow transition-all shadow-none drop-shadow-none text-lg"
-                                        onClick={closeModal}
-                                    >
-                                        <XLg />
-                                    </Button>
+                                    {(showBtnClose ||
+                                        showBtnClose === undefined) && (
+                                        <Button
+                                            className="bg-white text-zinc-800 hover:bg-white hover:drop-shadow transition-all shadow-none drop-shadow-none text-lg"
+                                            onClick={closeModal}
+                                        >
+                                            <XLg />
+                                        </Button>
+                                    )}
                                 </div>
 
                                 <div className="p-4 flex flex-col items-center">

@@ -19,7 +19,12 @@ export default function ModalGameInformation({
 
     return (
         <>
-            <ModalDialog closeModal={closeModal} isOpen={isOpen} title="">
+            <ModalDialog
+                closeModal={closeModal}
+                isOpen={isOpen}
+                title=""
+                showBtnClose={false}
+            >
                 <div className="flex flex-col w-full items-center justify-center gap-6">
                     {/** ESTADO DE LA OPCION SELECCIONADA */}
                     <h3 className="uppercase text-2xl md:text-3xl font-light text-center">
