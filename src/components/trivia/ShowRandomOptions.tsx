@@ -50,21 +50,23 @@ export default function ShowRandomOptions({
 
     return (
         <>
-            {randomOptions.length !== 0 &&
-                randomOptions.map((e, i) => (
-                    <ReplyButton
-                        key={i}
-                        option={e}
-                        onSelectAnswer={onSelectAnswer}
-                        className={
-                            isCurrentCheckOption(e)
-                                ? isCorrectOption()
-                                    ? "!bg-green-600 hover:bg-green-600 text-white font-medium"
-                                    : "!bg-red-600 hover:bg-red-600 text-white font-medium"
-                                : ""
-                        }
-                    />
-                ))}
+            <section className="w-full grid grid-cols-2 gap-6">
+                {randomOptions.length !== 0 &&
+                    randomOptions.map((e, i) => (
+                        <ReplyButton
+                            key={i}
+                            option={e}
+                            onSelectAnswer={onSelectAnswer}
+                            className={
+                                isCurrentCheckOption(e)
+                                    ? isCorrectOption()
+                                        ? "!bg-green-600 hover:bg-green-600 text-white font-medium"
+                                        : "!bg-red-600 hover:bg-red-600 text-white font-medium"
+                                    : ""
+                            }
+                        />
+                    ))}
+            </section>
         </>
     );
 }
