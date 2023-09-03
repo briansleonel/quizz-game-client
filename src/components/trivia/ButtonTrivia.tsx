@@ -1,6 +1,6 @@
-import { ButtonHTMLAttributes, HTMLProps, MouseEvent } from "react";
+import { MouseEvent } from "react";
 
-export default function Button({
+export default function ButtonTrivia({
     onClickFn,
     children,
     title,
