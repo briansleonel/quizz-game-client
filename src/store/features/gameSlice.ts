@@ -1,4 +1,4 @@
-import { IQuestion, IQuestionId } from "@/types/question";
+import { IQuestionId } from "@/types/question";
 import { IQuestionCategory } from "@/types/questionCategory";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
@@ -40,9 +40,14 @@ const gameSlice = createSlice({
             state.currentQuestion = state.questions[state.index];
             state.hasNext = state.questions.length - 1 > state.index;
         },
+        gameNextQuestion: function (state) {
+            state.index += 1;
+            state.currentQuestion = state.questions[state.index];
+            state.hasNext = state.questions.length - 1 > state.index;
+        },
     },
 });
 
-export const { gameSetConfig, gameStart } = gameSlice.actions;
+export const { gameSetConfig, gameStart, gameNextQuestion } = gameSlice.actions;
 
 export default gameSlice.reducer;
