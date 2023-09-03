@@ -2,47 +2,53 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { List, X } from "react-bootstrap-icons";
 import logo from "@/assets/quiz-2.jpg";
 import Button from "../button/ButtonPrimary";
 import NavLinks from "./NavLinks";
 import ButtonsLoginRegisterLogout from "./ButtonsLoginRegisterLogout";
 import Username from "./Username";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
     const [showSidebar, setShowSidebar] = useState(false);
+    const pathname = usePathname();
 
     return (
-        <nav className="w-full h-16 flex justify-between z-20 p-4 bg-stone-950 text-white md:px-16 lg:px-32 sticky top-0">
-            {/** Logo main */}
-            <Link
-                href="/"
-                className="flex items-center h-full cursor-pointe text-2xl font-light gap-4 text-white hover:text-white hover:no-underline"
-            >
-                <Image src={logo} alt="" className="w-8 h-8" />
-                <span>Quizz Game</span>
-            </Link>
+        <>
+            {!pathname.startsWith("/game") && (
+                <nav className="w-full h-16 flex justify-between z-20 p-4 bg-stone-950 text-white md:px-16 lg:px-32 sticky top-0">
+                    {/** Logo main */}
+                    <Link
+                        href="/"
+                        className="flex items-center h-full cursor-pointe text-2xl font-light gap-4 text-white hover:text-white hover:no-underline"
+                    >
+                        <Image src={logo} alt="" className="w-8 h-8" />
+                        <span>Quizz Game</span>
+                    </Link>
 
-            <Button
-                className="cursor-pointer w-8 h-8 text-slate-300 block md:hidden bg-transparent hover:bg-transparent p-0"
-                onClick={() => setShowSidebar(!showSidebar)}
-            >
-                <List className="w-full h-full" />
-            </Button>
+                    <Button
+                        className="cursor-pointer w-8 h-8 text-slate-300 block md:hidden bg-transparent hover:bg-transparent p-0"
+                        onClick={() => setShowSidebar(!showSidebar)}
+                    >
+                        <List className="w-full h-full" />
+                    </Button>
 
-            <div className="hidden md:flex items-center gap-4">
-                <Username />
-                <ButtonsLoginRegisterLogout />
-            </div>
+                    <div className="hidden md:flex items-center gap-4">
+                        <Username />
+                        <ButtonsLoginRegisterLogout />
+                    </div>
 
-            {/** Menu --- lo muestro si un usuario esta autenticado  */}
+                    {/** Menu --- lo muestro si un usuario esta autenticado  */}
 
-            <Sidebar
-                showSidebar={showSidebar}
-                setShowSidebar={setShowSidebar}
-            />
-        </nav>
+                    <Sidebar
+                        showSidebar={showSidebar}
+                        setShowSidebar={setShowSidebar}
+                    />
+                </nav>
+            )}
+        </>
     );
 }
 
