@@ -2,14 +2,12 @@
 
 import AlertDanger from "@/components/alert/AlertDanger";
 import ModalGameInformation from "@/components/modal/ModalGameInformation";
-import ContentTrivia from "@/components/trivia/ContentTrivia";
-import ReplyButton from "@/components/trivia/ReplyButton";
 import ShowQuestion from "@/components/trivia/ShowQuestion";
 import ShowRandomOptions from "@/components/trivia/ShowRandomOptions";
 import useModal from "@/hooks/useModal";
 import { toastInformation } from "@/libs/sonner/sonner.toast";
 import gameService from "@/services/game.service";
-import { gameStart } from "@/store/features/gameSlice";
+import { gameNextQuestion, gameStart } from "@/store/features/gameSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks.redux";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -83,8 +81,15 @@ export default function StartPage() {
         return false;
     };
 
+    const nextQuestion = () => {
+        closeModal();
+        setSelectedOption("");
+        dispatch(gameNextQuestion());
+        setSelectedAnswer(false);
+    };
+
     return (
-        <ContentTrivia className="gap-4">
+        <div className="w-full h-screen p-8 flex flex-col justify-between relative">
             {error && error instanceof Error ? (
                 <AlertDanger>{error.message}</AlertDanger>
             ) : isLoading ? (
@@ -101,6 +106,7 @@ export default function StartPage() {
                     <ModalGameInformation
                         closeModal={closeModal}
                         isOpen={showModal}
+                        nextQuestion={nextQuestion}
                         question={{
                             isCorrect: isCorrectOption(),
                             correct:
@@ -112,6 +118,6 @@ export default function StartPage() {
                     />
                 </>
             ) : null}
-        </ContentTrivia>
+        </div>
     );
 }
