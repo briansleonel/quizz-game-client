@@ -1,10 +1,44 @@
-import { CheckCircle, Eye, XCircle } from "react-bootstrap-icons";
+import { Eye } from "react-bootstrap-icons";
 import ModalDialog from "./ModalDialog";
 import Button from "../button/ButtonPrimary";
-import { useState } from "react";
-import ButtonTrivia from "../trivia/ButtonTrivia";
+import useModal from "@/hooks/useModal";
 import { useAppSelector } from "@/store/hooks.redux";
 
+export default function ModalGameInformation() {
+    const { closeModal, openModal, showModal } = useModal();
+    const { currentQuestion } = useAppSelector((state) => state.game);
+
+    return (
+        <>
+            {currentQuestion && currentQuestion.description && (
+                <Button
+                    type="button"
+                    title="Mostrar descripción"
+                    onClick={openModal}
+                    className="bg-purple-600 hover:bg-purple-600 text-white hover:text-white"
+                >
+                    <Eye />
+                </Button>
+            )}
+
+            <ModalDialog
+                closeModal={closeModal}
+                isOpen={showModal}
+                title="Descripción"
+                //showBtnClose={false}
+            >
+                <section className="w-full text-xl font-light">
+                    {/** MOSTRAR RESPUESTA CORRECTA Y DESCRIPCIÓN */}
+                    {currentQuestion && currentQuestion.description && (
+                        <p className="mt-2">{currentQuestion.description}</p>
+                    )}
+                </section>
+            </ModalDialog>
+        </>
+    );
+}
+
+/*
 interface Props {
     closeModal: () => void;
     isOpen: boolean;
@@ -29,16 +63,16 @@ export default function ModalGameInformation({
                 closeModal={closeModal}
                 isOpen={isOpen}
                 title=""
-                showBtnClose={false}
+                //showBtnClose={false}
             >
                 <section className="flex flex-col w-full items-center justify-center gap-6">
-                    {/** ESTADO DE LA OPCION SELECCIONADA */}
+                    {/** ESTADO DE LA OPCION SELECCIONADA /}
                     <h3 className="uppercase text-2xl md:text-3xl font-light text-center">
                         ¡Respuesta{" "}
                         {question.isCorrect ? "correcta" : "incorrecta"}!
                     </h3>
 
-                    {/** ICON DEL ESTADO DE LA RESPUESTA */}
+                    {/** ICON DEL ESTADO DE LA RESPUESTA /}
                     <span className="w-1/5 h-fit">
                         {question.isCorrect ? (
                             <CheckCircle className="text-green-500 mx-auto w-full h-full" />
@@ -47,7 +81,7 @@ export default function ModalGameInformation({
                         )}
                     </span>
 
-                    {/** MOSTRAR RESPUESTA CORRECTA Y DESCRIPCIÓN */}
+                    {/** MOSTRAR RESPUESTA CORRECTA Y DESCRIPCIÓN /}
                     <div className="w-full border border-indigo-500 text-indigo-600 rounded-md p-2 text-sm mt-4">
                         <div className="w-full flex justify-between items-center">
                             <p className="font-semibold uppercase">
@@ -73,7 +107,7 @@ export default function ModalGameInformation({
                         )}
                     </div>
 
-                    {/** BOTONES PARA CONTINUAR O FINALIZAR LA TRIVIA */}
+                    {/** BOTONES PARA CONTINUAR O FINALIZAR LA TRIVIA /}
                     {hasNext ? (
                         <ButtonTrivia
                             onClickFn={() => nextQuestion()}
@@ -96,3 +130,5 @@ export default function ModalGameInformation({
         </>
     );
 }
+
+*/
