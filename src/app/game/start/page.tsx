@@ -2,6 +2,7 @@
 
 import AlertDanger from "@/components/alert/AlertDanger";
 import ModalGameInformation from "@/components/modal/ModalGameInformation";
+import AnswerQuestion from "@/components/trivia/AnswerQuestion";
 import ShowQuestion from "@/components/trivia/ShowQuestion";
 import ShowRandomOptions from "@/components/trivia/ShowRandomOptions";
 import useModal from "@/hooks/useModal";
@@ -97,13 +98,26 @@ export default function StartPage() {
             ) : data && currentQuestion ? (
                 <>
                     <ShowQuestion question={currentQuestion.question} />
+                    {selectedAnswer && (
+                        <AnswerQuestion
+                            nextQuestion={nextQuestion}
+                            question={{
+                                isCorrect: isCorrectOption(),
+                                correct:
+                                    currentQuestion.options[
+                                        currentQuestion.correct
+                                    ],
+                                description: currentQuestion.description,
+                            }}
+                        />
+                    )}
                     <ShowRandomOptions
                         isCorrectOption={isCorrectOption}
                         selectedAnswer={selectedAnswer}
                         selectedOption={selectedOption}
                         onSelectAnswer={onSelectAnswer}
                     />
-                    <ModalGameInformation
+                    {/*<ModalGameInformation
                         closeModal={closeModal}
                         isOpen={showModal}
                         nextQuestion={nextQuestion}
@@ -115,7 +129,7 @@ export default function StartPage() {
                                 ],
                             description: currentQuestion.description,
                         }}
-                    />
+                    />*/}
                 </>
             ) : null}
         </div>
