@@ -1,12 +1,11 @@
 "use client";
 
 import AlertDanger from "@/components/alert/AlertDanger";
-import ModalGameInformation from "@/components/modal/ModalGameInformation";
 import AnswerQuestion from "@/components/trivia/AnswerQuestion";
 import ShowQuestion from "@/components/trivia/ShowQuestion";
 import ShowRandomOptions from "@/components/trivia/ShowRandomOptions";
 import useModal from "@/hooks/useModal";
-import { toastInformation } from "@/libs/sonner/sonner.toast";
+import { toastInformation, toastSuccess } from "@/libs/sonner/sonner.toast";
 import gameService from "@/services/game.service";
 import { gameNextQuestion, gameStart } from "@/store/features/gameSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks.redux";
@@ -18,8 +17,9 @@ export default function StartPage() {
     const router = useRouter();
     const dispatch = useAppDispatch();
 
-    const { category, limit, questions, index, currentQuestion } =
-        useAppSelector((state) => state.game);
+    const { category, limit, currentQuestion } = useAppSelector(
+        (state) => state.game
+    );
 
     const [selectedAnswer, setSelectedAnswer] = useState(false);
     const [selectedOption, setSelectedOption] = useState("");
@@ -30,7 +30,7 @@ export default function StartPage() {
             gameService.getQuestionsGame({ category: category._id, limit }),
     });
 
-    const { closeModal, openModal, showModal } = useModal();
+    const { closeModal, openModal } = useModal();
 
     /**
      * Se usa el hook en la primer carga del componente.
@@ -89,6 +89,11 @@ export default function StartPage() {
         setSelectedAnswer(false);
     };
 
+    const finishQuiz = () => {
+        toastSuccess("Juego terminado");
+        router.push("/game");
+    };
+
     return (
         <div className="w-full h-screen p-8 flex flex-col justify-between relative">
             {error && error instanceof Error ? (
@@ -101,6 +106,7 @@ export default function StartPage() {
                     {selectedAnswer && (
                         <AnswerQuestion
                             nextQuestion={nextQuestion}
+                            finishQuiz={finishQuiz}
                             question={{
                                 isCorrect: isCorrectOption(),
                                 correct:
