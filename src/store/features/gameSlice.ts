@@ -45,9 +45,18 @@ const gameSlice = createSlice({
             state.currentQuestion = state.questions[state.index];
             state.hasNext = state.questions.length - 1 > state.index;
         },
+        gameResetQuiz: function (state) {
+            state.category = { _id: "", name: "" };
+            state.limit = 0;
+            state.questions = [];
+            state.currentQuestion = undefined;
+            state.index = -1;
+            state.hasNext = false;
+        },
     },
 });
 
-export const { gameSetConfig, gameStart, gameNextQuestion } = gameSlice.actions;
+export const { gameSetConfig, gameStart, gameNextQuestion, gameResetQuiz } =
+    gameSlice.actions;
 
 export default gameSlice.reducer;
