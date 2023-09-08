@@ -4,8 +4,8 @@ import ContentTrivia from "@/components/trivia/ContentTrivia";
 
 export default function GamePage() {
     return (
-        <ContentTrivia className="gap-4">
-            <Title className="text-white">Trivia</Title>
+        <ContentTrivia className="gap-6">
+            <Title className="text-white !text-4xl ">QUIZZ</Title>
             <GameForm />
         </ContentTrivia>
     );
