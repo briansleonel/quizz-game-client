@@ -9,12 +9,14 @@ interface Props {
     selected: IQuestionCategory | undefined;
     setSelected: (category: IQuestionCategory) => void;
     newOption?: IQuestionCategory;
+    className?: string;
 }
 
 export default function ListBoxCategory({
     selected,
     setSelected,
     newOption,
+    className,
 }: Props) {
     // Cargo las categorías
     const { data, isLoading, error } = useQuery({
@@ -66,6 +68,7 @@ export default function ListBoxCategory({
                     selected={selected}
                     setSelected={setSelected}
                     valueShow={selected?.name ? selected.name : ""}
+                    className={className ?? ""}
                 >
                     {mapOptions(options)}
                     {/*data.map((category, index) => (

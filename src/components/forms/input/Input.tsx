@@ -12,7 +12,13 @@ interface Props {
     };
 }
 
-export const InputText = ({ name, type, inputProps, className }: Props) => {
+export const InputText = ({
+    name,
+    type,
+    inputProps,
+    className,
+    placeholder,
+}: Props) => {
     return (
         <input
             className={classNames(
@@ -22,6 +28,7 @@ export const InputText = ({ name, type, inputProps, className }: Props) => {
             type={type}
             name={name}
             id={name}
+            placeholder={placeholder ?? ""}
             {...inputProps}
         />
     );

@@ -7,6 +7,7 @@ interface Props<T> {
     setSelected: (arg: T) => void;
     valueShow: string;
     children: React.ReactNode;
+    className?: string;
 }
 
 export function ListBox<S>({
@@ -14,13 +15,22 @@ export function ListBox<S>({
     setSelected,
     valueShow,
     children,
+    className,
 }: Props<S>) {
     return (
         <div className="w-full relative">
             <Listbox value={selected} onChange={setSelected}>
                 <div className="relative mt-1">
-                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 border border-gray-400 text-left shadow-md focus:outline-none sm:text-sm">
-                        <span className="block truncate text-neutral-900">
+                    <Listbox.Button
+                        className={`relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 border border-gray-400 text-left shadow-md focus:outline-none sm:text-sm ${
+                            className ?? ""
+                        }`}
+                    >
+                        <span
+                            className={`block truncate ${
+                                valueShow ? "text-gray-900" : "text-gray-400"
+                            }`}
+                        >
                             {valueShow.toUpperCase() || "Seleccione una opción"}
                         </span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
