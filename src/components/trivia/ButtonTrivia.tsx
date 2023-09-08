@@ -1,3 +1,4 @@
+import { classNames } from "@/libs/classNames";
 import { MouseEvent } from "react";
 
 export default function ButtonTrivia({
@@ -14,7 +15,10 @@ export default function ButtonTrivia({
 }) {
     return (
         <button
-            className={`rounded backdrop-blur-sm backdrop-filter bg-zinc-950/5 text-purple-500 hover:text-purple-600 border border-purple-500 hover:border-purple-600 hover:scale-105 transition-all duration-500 mx-auto px-12 py-4 font-bold text-xl tracking-widest uppercase ${className}`}
+            className={classNames(
+                "rounded bg-purple-600 text-white hover:text-white shadow shadow-neutral-900 transition-all duration-500 mx-auto px-12 py-4 font-bold text-xl tracking-widest uppercase",
+                className ? className : ""
+            )}
             onClick={onClickFn}
             title={title}
         >

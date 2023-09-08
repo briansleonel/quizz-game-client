@@ -38,7 +38,7 @@ export default function AnswerQuestion({
                     <ButtonTrivia
                         onClickFn={() => nextQuestion()}
                         title="Siguiente pregunta"
-                        className="!bg-purple-600 text-white hover:text-white border-none shadow shadow-neutral-900"
+                        className="hover:scale-105"
                     >
                         Continuar
                     </ButtonTrivia>
