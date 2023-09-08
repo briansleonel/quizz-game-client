@@ -5,9 +5,14 @@ import ModalGameInformation from "../modal/ModalGameInformation";
 interface Props {
     question: { isCorrect: boolean; correct: string; description: string };
     nextQuestion: () => void;
+    finishQuiz: () => void;
 }
 
-export default function AnswerQuestion({ nextQuestion, question }: Props) {
+export default function AnswerQuestion({
+    nextQuestion,
+    question,
+    finishQuiz,
+}: Props) {
     const { hasNext } = useAppSelector((state) => state.game);
 
     return (
@@ -39,7 +44,7 @@ export default function AnswerQuestion({ nextQuestion, question }: Props) {
                     </ButtonTrivia>
                 ) : (
                     <ButtonTrivia
-                        onClickFn={() => function () {}}
+                        onClickFn={() => finishQuiz()}
                         title=""
                         className="!bg-neutral-900 text-white hover:text-white border-none shadow shadow-neutral-900"
                     >
