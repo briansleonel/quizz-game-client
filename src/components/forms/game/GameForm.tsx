@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import ListBoxCategory from "../list-box/ListBoxCategory";
 import Label from "../question/Label";
 import { IQuestionCategory } from "@/types/questionCategory";
@@ -9,7 +9,7 @@ import { useFormInput } from "@/hooks/useFormInput";
 import { toastInformation } from "@/libs/sonner/sonner.toast";
 import ButtonTrivia from "@/components/trivia/ButtonTrivia";
 import { useAppDispatch } from "@/store/hooks.redux";
-import { gameSetConfig } from "@/store/features/gameSlice";
+import { gameResetQuiz, gameSetConfig } from "@/store/features/gameSlice";
 import { useRouter } from "next/navigation";
 
 const allCategories: IQuestionCategory = {
@@ -49,6 +49,13 @@ export default function GameForm() {
             toastInformation("Debe ingresar una cantidad entre 1 y 30");
         }
     };
+
+    /**
+     * Hook que se encarga de reiniciar las variables del juego cada vez que se ingresa al componente
+     */
+    useEffect(() => {
+        dispatch(gameResetQuiz());
+    });
 
     return (
         <>
