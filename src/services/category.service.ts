@@ -11,7 +11,7 @@ import { isAxiosError } from "axios";
 async function getAllCategories() {
     try {
         const response = await __instanceAxios.get(
-            `${endpointsAPI.CATEGORY}/all`
+            `all/${endpointsAPI.CATEGORY}`
         );
         return response.data.data as Array<IQuestionCategory>;
     } catch (error) {
