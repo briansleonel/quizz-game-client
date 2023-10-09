@@ -1,5 +1,6 @@
 import { toastError, toastSuccess } from "@/libs/sonner/sonner.toast";
 import { saveStateAuthLocalStorage } from "@/libs/state.localStorage";
+import { saveStateTokenLocalStorage } from "@/libs/token.localStorage";
 import userService from "@/services/user.service";
 import { login } from "@/store/features/authSlice";
 import { resetQuestionFilters } from "@/store/features/filters.question.slice";
@@ -24,6 +25,7 @@ export function useLoginMutation() {
             try {
                 dispatch(resetQuestionFilters()); // reseteo los filtros de búsqueda
                 saveStateAuthLocalStorage(data.data);
+                saveStateTokenLocalStorage(data.data.token);
                 dispatch(login(data.data)); // guardo los datos de login en el estado global de la aplicación
                 toastSuccess(data.message);
                 router.push("/dashboard"); // redirecciono a la página /dashboard
