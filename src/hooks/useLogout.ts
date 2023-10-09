@@ -1,5 +1,6 @@
 import { toastError, toastSuccess } from "@/libs/sonner/sonner.toast";
 import { deleteAuthLocalStorage } from "@/libs/state.localStorage";
+import { deleteTokenLocalStorage } from "@/libs/token.localStorage";
 import userService from "@/services/user.service";
 import { logout } from "@/store/features/authSlice";
 import { useAppDispatch } from "@/store/hooks.redux";
@@ -16,7 +17,7 @@ export function useLogoutMutation() {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const queryClient = useQueryClient()
+    const queryClient = useQueryClient();
 
     const logoutMutation = useMutation({
         mutationFn: userService.logout,
@@ -24,10 +25,11 @@ export function useLogoutMutation() {
             try {
                 dispatch(logout()); // elimino los datos de la store
                 deleteAuthLocalStorage(); // elimino los datos de localstorage
+                deleteTokenLocalStorage();
                 toastSuccess(data.message);
                 router.push("/login"); // redirecciono a la página /dashboard
                 //queryCache.clear();
-                queryClient.clear()
+                queryClient.clear();
             } catch (error) {
                 if (error instanceof Error) toastError(error.message);
             }
